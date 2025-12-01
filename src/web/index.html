@@ -1,0 +1,1798 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Akmola Region - Discover Kazakhstan's Heart</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbZOpQITHYzrNPWblZcQctBy47z8Bs24U&callback=console.debug&libraries=maps,marker&v=beta"></script>
+    <style>
+        gmp-map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header style="background: linear-gradient(135deg, #5c6bc0 0%, #7986cb 50%, #9fa8da 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100;">
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; max-width: 1400px; margin: 0 auto;">
+            <div class="nav-brand" style="display: flex; align-items: center; gap: 1rem;">
+                <h1 style="color: white; margin: 0; font-size: 2rem; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Visit Aqmola</h1>
+            </div>
+            <div class="nav-links" style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+                <a href="#home" data-route="home" class="nav-link" style="color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 25px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">Главная</a>
+                <a href="#map" data-route="map" class="nav-link" style="color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 25px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">Карта</a>
+                <a href="#complaints" data-route="complaints" class="nav-link" style="color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 25px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">Жалобы</a>
+                <a href="#support" data-route="support" class="nav-link" style="color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 25px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">Господдержка</a>
+                <a href="#egov" data-route="egov" class="nav-link" style="color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 25px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">eGov</a>
+                <a href="#ai" data-route="ai" class="nav-link" style="color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 25px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">AI</a>
+                <select id="langSelector" onchange="changeLanguage(this.value)" style="background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); color: white; padding: 0.6rem 1rem; border-radius: 15px; cursor: pointer; font-weight: 600;">
+                    <option value="ru">🇷🇺 RU</option>
+                    <option value="kz">🇰🇿 KZ</option>
+                    <option value="en">🇬🇧 EN</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main id="app" style="background: white; min-height: calc(100vh - 120px); position: relative;">
+        <!-- Контент загружается динамически через JavaScript -->
+    </main>
+    
+    <!-- Floating AI Assistant Button (like visitaqmola.kz) -->
+    <div id="aiAssistantBtn" style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 12px 32px rgba(102, 126, 234, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 24px rgba(102, 126, 234, 0.4)'" onclick="toggleAIChat()">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            <circle cx="9" cy="10" r="1" fill="white"></circle>
+            <circle cx="15" cy="10" r="1" fill="white"></circle>
+            <path d="M9 14c.5.5 1.5 1 3 1s2.5-.5 3-1"></path>
+        </svg>
+    </div>
+
+    <!-- AI Chat Window -->
+    <div id="aiChatWindow" style="position: fixed; bottom: 100px; right: 30px; width: 380px; height: 500px; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 999; display: none; flex-direction: column; overflow: hidden; animation: slideUp 0.3s ease;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; color: white; border-radius: 20px 20px 0 0; position: relative;">
+            <h3 style="margin: 0; font-size: 1.2rem; font-weight: 600;">AI Ассистент</h3>
+            <p style="margin: 5px 0 0 0; font-size: 0.85rem; opacity: 0.9;">Задайте вопрос о регионе</p>
+            <button onclick="toggleAIChat()" style="position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.2); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; line-height: 1; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">×</button>
+        </div>
+        
+        <div id="aiChatMessages" style="flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #f8f9fa;">
+            <div style="background: white; padding: 12px 16px; border-radius: 15px 15px 15px 5px; max-width: 85%; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <p style="margin: 0; color: #444; font-size: 0.95rem; line-height: 1.5;">Здравствуйте! Я помогу вам узнать больше об Акмолинской области. Спрашивайте о достопримечательностях, маршрутах или жилье!</p>
+            </div>
+        </div>
+        
+        <div style="padding: 15px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px;">
+            <input type="text" id="aiChatInput" placeholder="Введите ваш вопрос..." style="flex: 1; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 25px; font-size: 0.95rem; outline: none; transition: all 0.3s;" onfocus="this.style.borderColor='#667eea'" onblur="this.style.borderColor='#e0e0e0'" onkeypress="if(event.key==='Enter') sendAIMessage()">
+            <button onclick="sendAIMessage()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 16px rgba(102, 126, 234, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(102, 126, 234, 0.3)'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        #aiChatMessages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        #aiChatMessages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        #aiChatMessages::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 3px;
+        }
+        
+        #aiChatMessages::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+    </style>
+    
+    <div class=\"toasts\" id=\"toasts\"></div>
+
+    <footer class="tourism-footer">
+      <div class="footer-container">
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+    <script>
+        // Function to send message to AI
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            
+            if (!input || !messages || !input.value.trim()) return;
+            
+            const userMessage = input.value.trim();
+            
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.style.cssText = 'padding: 1rem; background: #e8eaf6; border-radius: 10px; margin-bottom: 1rem; text-align: right;';
+            userDiv.innerHTML = `<strong>Вы:</strong> ${userMessage}`;
+            messages.appendChild(userDiv);
+            
+            // Add loading indicator
+            const loadingDiv = document.createElement('div');
+            loadingDiv.style.cssText = 'padding: 1rem; background: #f5f5f5; border-radius: 10px; margin-bottom: 1rem; font-style: italic; color: #666;';
+            loadingDiv.innerHTML = `<strong>AI Помощник:</strong> Думаю...`;
+            messages.appendChild(loadingDiv);
+            
+            // Clear input
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+            
+            try {
+                // Get AI response
+                const aiResponse = await getAIResponse(userMessage);
+                
+                // Remove loading indicator
+                messages.removeChild(loadingDiv);
+                
+                // Add AI response
+                const aiDiv = document.createElement('div');
+                aiDiv.style.cssText = 'padding: 1rem; background: #5c6bc0; color: white; border-radius: 10px; margin-bottom: 1rem;';
+                aiDiv.innerHTML = `<strong>AI Помощник:</strong> ${aiResponse}`;
+                messages.appendChild(aiDiv);
+                
+            } catch (error) {
+                // Remove loading indicator and show error
+                messages.removeChild(loadingDiv);
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = 'padding: 1rem; background: #ffcdd2; color: #c62828; border-radius: 10px; margin-bottom: 1rem;';
+                errorDiv.innerHTML = `<strong>Ошибка:</strong> Не удалось получить ответ. Попробуйте позже.`;
+                messages.appendChild(errorDiv);
+            }
+            
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        // AI response system with GPT integration
+        // ЗАМЕНИТЕ ВАШ API КЛЮЧ ЗДЕСЬ
+        const GEMINI_API_KEY = 'YOUR_GOOGLE_AI_STUDIO_API_KEY_HERE';
+        
+        async function getAIResponse(message) {
+            try {
+                // Используем Google Gemini API напрямую
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: `Ты - виртуальный туристический гид по Акмолинской области Казахстана. 
+Помогай туристам с информацией о достопримечательностях, маршрутах, жилье и развлечениях.
+Основные достопримечательности: Национальный парк Бурабай (озера Боровое, Щучье), Кокшетау, гора Жеке-Батыр, скала Окжетпес.
+
+Вопрос туриста: ${message}`
+                            }]
+                        }]
+                    })
+                });
+                
+                if (!response.ok) {
+                    console.error('Gemini API error:', response.status);
+                    throw new Error('Сервис временно недоступен');
+                }
+                
+                const data = await response.json();
+                
+                // Извлекаем текст ответа из Gemini
+                if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                    return data.candidates[0].content.parts[0].text;
+                }
+                
+                throw new Error('Некорректный ответ от API');
+                
+            } catch (error) {
+                console.error('AI Error:', error);
+                // Fallback to local responses if API is unavailable
+                return getLocalResponse(message);
+            }
+        }
+        
+        // Fallback local responses
+        function getLocalResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('бурабай')) {
+                return 'Национальный парк Бурабай - жемчужина Казахстана! Рекомендую посетить озёра Боровое и Щучье. Лучшее время для посещения - июнь-сентябрь.';
+            } else if (lowerMessage.includes('кокшетау')) {
+                return 'Кокшетау - административный центр области. Здесь стоит посетить музей истории области и парк "Ботанический сад".';
+            } else if (lowerMessage.includes('жилье') || lowerMessage.includes('отель')) {
+                return 'В области есть различные варианты жилья: санатории в Бурабае, отели в Кокшетау, гостевые дома.';
+            } else if (lowerMessage.includes('маршрут')) {
+                return 'Рекомендованный маршрут: День 1 - Кокшетау; День 2-3 - Бурабай.';
+            } else {
+                return 'Спасибо за вопрос! Я могу помочь с информацией о достопримечательностях, жилье и маршрутах в Акмолинской области.';
+            }
+        }
+        
+        // Toggle AI Chat Window
+        function toggleAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
+                chatWindow.style.display = 'flex';
+            } else {
+                chatWindow.style.display = 'none';
+            }
+        }
+        
+        // Send AI Message (new floating chat)
+        async function sendAIMessage() {
+            const input = document.getElementById('aiChatInput');
+            const messagesContainer = document.getElementById('aiChatMessages');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.style.cssText = 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 16px; border-radius: 15px 15px 5px 15px; max-width: 85%; align-self: flex-end; margin-left: auto; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);';
+            userDiv.innerHTML = `<p style="margin: 0; font-size: 0.95rem; line-height: 1.5;">${message}</p>`;
+            messagesContainer.appendChild(userDiv);
+            
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Show loading
+            const loadingDiv = document.createElement('div');
+            loadingDiv.style.cssText = 'background: white; padding: 12px 16px; border-radius: 15px 15px 15px 5px; max-width: 85%; box-shadow: 0 2px 8px rgba(0,0,0,0.08);';
+            loadingDiv.innerHTML = '<p style="margin: 0; color: #999; font-size: 0.95rem;">Печатает...</p>';
+            messagesContainer.appendChild(loadingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            try {
+                const aiResponse = await getAIResponse(message);
+                
+                // Remove loading
+                messagesContainer.removeChild(loadingDiv);
+                
+                // Add AI response
+                const aiDiv = document.createElement('div');
+                aiDiv.style.cssText = 'background: white; padding: 12px 16px; border-radius: 15px 15px 15px 5px; max-width: 85%; box-shadow: 0 2px 8px rgba(0,0,0,0.08);';
+                aiDiv.innerHTML = `<p style="margin: 0; color: #444; font-size: 0.95rem; line-height: 1.5;">${aiResponse}</p>`;
+                messagesContainer.appendChild(aiDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+            } catch (error) {
+                messagesContainer.removeChild(loadingDiv);
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = 'background: #ffebee; color: #c62828; padding: 12px 16px; border-radius: 15px 15px 15px 5px; max-width: 85%; box-shadow: 0 2px 8px rgba(0,0,0,0.08);';
+                errorDiv.innerHTML = '<p style="margin: 0; font-size: 0.95rem;">Ошибка при получении ответа</p>';
+                messagesContainer.appendChild(errorDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+        
+        // Allow Enter key to send message
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.getElementById('chatInput') === document.activeElement) {
+                sendMessage();
+            }
+        });
+    </script>
+    <script>
+        // Объект со всеми переводами
+        const translations = {
+            ru: {
+                title: 'Visit Aqmola',
+                home: 'Главная',
+                map: 'Карта',
+                complaints: 'Жалобы',
+                support: 'Господдержка',
+                egov: 'eGov',
+                ai: 'AI',
+                heroTitle: 'Откройте для себя',
+                heroSubtitle: 'Акмолинскую область',
+                heroDesc: 'Исследуйте Бурабай, Кокшетау и сокровища казахской степи • 2025',
+                attractions: 'Достопримечательности',
+                attractionsDesc: 'Откройте красоты Акмолинской области',
+                mapTitle: 'Карта Акмолинской области',
+                mapDesc: 'Основные достопримечательности региона',
+                loading: 'Загрузка...',
+                kokshetau: 'Кокшетау',
+                kokshetauDesc: 'Административный центр',
+                borovoe: 'Озеро Боровое',
+                borovoeDesc: 'Жемчужина Бурабая',
+                burabay: 'Курорт Бурабай',
+                burabayDesc: 'Санаторная зона',
+                naturepark: 'Природный парк',
+                natureparkDesc: 'Национальный парк',
+                zhekebatyr: 'Гора Жеке-Батыр',
+                zhekebatyrDesc: 'Легендарная скала',
+                shuchye: 'Озеро Щучье',
+                shuchyeDesc: 'Живописное озеро',
+                okzhetpes: 'Скала Окжетпес',
+                okzhetpesDesc: 'Знаменитая скала',
+                kokshe: 'Гора Кокше',
+                koksheDesc: 'Панорамные виды',
+                museum: 'Музей истории',
+                museumDesc: 'История области',
+                parkpobedy: 'Парк Победы',
+                parkpobeдyDesc: 'Центральный парк',
+                chebachye: 'Озеро Чебачье',
+                chebachyeDesc: 'Чистейшие воды',
+                pine: 'Сосновый бор',
+                pineDesc: 'Целебный воздух'
+            },
+            kz: {
+                title: 'Visit Aqmola',
+                home: 'Басты бет',
+                map: 'Карта',
+                complaints: 'Шағымдар',
+                support: 'Мемлекеттік қолдау',
+                egov: 'eGov',
+                ai: 'AI',
+                heroTitle: 'Өзіңіз үшін ашыңыз',
+                heroSubtitle: 'Ақмола облысы',
+                heroDesc: 'Бурабай, Көкшетау және қазақ даласының қазыналарын зерттеңіз • 2025',
+                attractions: 'Көрікті жерлер',
+                attractionsDesc: 'Ақмола облысының сұлулықтарын ашыңыз',
+                mapTitle: 'Ақмола облысының картасы',
+                mapDesc: 'Аймақтың негізгі көрікті жерлері',
+                loading: 'Жүктелуде...',
+                kokshetau: 'Көкшетау',
+                kokshetauDesc: 'Әкімшілік орталық',
+                borovoe: 'Боровое көлі',
+                borovoeDesc: 'Бурабайдың інжу-маржаны',
+                burabay: 'Бурабай курорты',
+                burabayDesc: 'Санаторлық аймақ',
+                naturepark: 'Табиғи саябақ',
+                natureparkDesc: 'Ұлттық саябақ',
+                zhekebatyr: 'Жеке-Батыр тауы',
+                zhekebatyrDesc: 'Аңызға айналған жартас',
+                shuchye: 'Щучье көлі',
+                shuchyeDesc: 'Көркем көл',
+                okzhetpes: 'Оқжетпес жартасы',
+                okzhetpesDesc: 'Атақты жартас',
+                kokshe: 'Көкше тауы',
+                koksheDesc: 'Панорамалық көріністер',
+                museum: 'Тарих музейі',
+                museumDesc: 'Облыс тарихы',
+                parkpobedy: 'Жеңіс паркі',
+                parkpobeдyDesc: 'Орталық парк',
+                chebachye: 'Шебақты көлі',
+                chebachyeDesc: 'Таза сулар',
+                pine: 'Қарағай тоғайы',
+                pineDesc: 'Емдік ауа'
+            },
+            en: {
+                title: 'Visit Aqmola',
+                home: 'Home',
+                map: 'Map',
+                complaints: 'Complaints',
+                support: 'Government Support',
+                egov: 'eGov',
+                ai: 'AI',
+                heroTitle: 'Discover',
+                heroSubtitle: 'Akmola Region',
+                heroDesc: 'Explore Burabay, Kokshetau and treasures of the Kazakh steppe • 2025',
+                attractions: 'Attractions',
+                attractionsDesc: 'Discover the beauty of Akmola Region',
+                mapTitle: 'Map of Akmola Region',
+                mapDesc: 'Main attractions of the region',
+                loading: 'Loading...',
+                kokshetau: 'Kokshetau',
+                kokshetauDesc: 'Administrative center',
+                borovoe: 'Borovoye Lake',
+                borovoeDesc: 'Pearl of Burabay',
+                burabay: 'Burabay Resort',
+                burabayDesc: 'Sanatorium zone',
+                naturepark: 'Nature Park',
+                natureparkDesc: 'National park',
+                zhekebatyr: 'Zheke-Batyr Mountain',
+                zhekebatyrDesc: 'Legendary rock',
+                shuchye: 'Shchuchye Lake',
+                shuchyeDesc: 'Picturesque lake',
+                okzhetpes: 'Okzhetpes Rock',
+                okzhetpesDesc: 'Famous rock',
+                kokshe: 'Kokshe Mountain',
+                koksheDesc: 'Panoramic views',
+                museum: 'History Museum',
+                museumDesc: 'Regional history',
+                parkpobedy: 'Victory Park',
+                parkpobeдyDesc: 'Central park',
+                chebachye: 'Chebachye Lake',
+                chebachyeDesc: 'Crystal clear waters',
+                pine: 'Pine Forest',
+                pineDesc: 'Healing air'
+            }
+        };
+
+        // Глобальная переменная для текущего языка
+        let currentLanguage = localStorage.getItem('preferredLanguage') || 'ru';
+        
+        function navigate(route) {
+            console.log('Navigating to:', route);
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Update content
+            const app = document.getElementById('app');
+            
+            if (route === 'home') {
+                const t = translations[currentLanguage];
+                app.innerHTML = `
+                    <!-- Enhanced Hero Section -->
+                    <div class='hero-tourism' style='position: relative; padding: 5rem 2rem; text-align: center; background: rgba(0,0,0,0.1); backdrop-filter: blur(5px);'>
+                        <div style='position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url(\"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80\") center/cover; opacity: 0.15; animation: float 8s ease-in-out infinite;'></div>
+                        <div class='hero-content' style='position: relative; z-index: 2; max-width: 1200px; margin: 0 auto;'>
+                            <h1 style='font-size: 4.5rem; margin-bottom: 2rem; color: #2c3e50; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-weight: 900; line-height: 1.1;'>${t.heroTitle}<br><span style='color: #5c6bc0;'>${t.heroSubtitle}</span></h1>
+                            <p style='font-size: 1.6rem; margin-bottom: 3rem; color: #546e7a; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;'>${t.heroDesc}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Достопримечательности на главной -->
+                    <div style='padding: 4rem 2rem; background: #f8f9fa;'>
+                        <div style='text-align: center; margin-bottom: 3rem;'>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>${t.attractions}</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>${t.attractionsDesc}</p>
+                        </div>
+                        
+                        <div style='max-width: 1400px; margin: 0 auto;'>
+                            <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;'>
+                                <div onclick='navigateToLocation(53.2833, 69.3833, "Кокшетау")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.kokshetau}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.kokshetauDesc}</p>
+                                    <div id='rating-Кокшетау' style='margin-top: 1rem; display: flex; gap: 0.3rem; justify-content: center;'>
+                                        <span style='color: #999; font-size: 0.9rem;'>${t.loading}</span>
+                                    </div>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0833, 70.2833, "Озеро Боровое")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.borovoe}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.borovoeDesc}</p>
+                                    <div id='rating-Озеро Боровое' style='margin-top: 1rem; display: flex; gap: 0.3rem; justify-content: center;'>
+                                        <span style='color: #999; font-size: 0.9rem;'>${t.loading}</span>
+                                    </div>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(52.8667, 70.6167, "Курорт Бурабай")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.burabay}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.burabayDesc}</p>
+                                    <div id='rating-Курорт Бурабай' style='margin-top: 1rem; display: flex; gap: 0.3rem; justify-content: center;'>
+                                        <span style='color: #999; font-size: 0.9rem;'>${t.loading}</span>
+                                    </div>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.1167, 70.3000, "Природный парк")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.naturepark}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.natureparkDesc}</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0950, 70.2822, "Гора Жеке-Батыр")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.zhekebatyr}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.zhekebatyrDesc}</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0844, 70.2764, "Озеро Щучье")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.shuchye}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.shuchyeDesc}</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0933, 70.2989, "Скала Окжетпес")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.okzhetpes}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.okzhetpesDesc}</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(52.9678, 70.4267, "Гора Кокше")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.kokshe}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.koksheDesc}</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.2900, 69.4050, "Музей истории")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.museum}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.museumDesc}</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.2950, 69.3900, "Парк Победы")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.parkpobedy}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.parkpobeдyDesc}</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0789, 70.2956, "Озеро Чебачье")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.chebachye}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.chebachyeDesc}</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0922, 70.3044, "Сосновый бор")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.pine}</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>${t.pineDesc}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                
+                // Загружаем рейтинги сразу после рендера
+                setTimeout(() => loadRatings(), 500);
+
+            } else if (route === 'destinations') {
+                app.innerHTML = `
+                    <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
+                        <div style='text-align:center; margin-bottom: 3rem;'>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>Достопримечательности Акмолинской области</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>Откройте красоты Казахстана</p>
+                        </div>
+                        
+                        <div style='max-width: 1200px; margin: 0 auto;'>
+                            <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;'>
+                                <div onclick='showLocationOnMap(\"kokshetau\")' style='background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;'>
+                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Kokshetau_city_center.jpg/800px-Kokshetau_city_center.jpg' alt='Кокшетау' style='width: 100%; height: 200px; object-fit: cover;'>
+                                    <div style='padding: 1.5rem;'>
+                                        <h3 style='color: #5c6bc0; margin-bottom: 1rem; font-size: 1.3rem;'>Кокшетау</h3>
+                                    </div>
+                                </div>
+                                
+                                <div onclick='showLocationOnMap(\"burabay\")' style='background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;'>
+                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Burabay_Lake_Kazakhstan.jpg/800px-Burabay_Lake_Kazakhstan.jpg' alt='Бурабай' style='width: 100%; height: 200px; object-fit: cover;'>
+                                    <div style='padding: 1.5rem;'>
+                                        <h3 style='color: #5c6bc0; margin-bottom: 1rem; font-size: 1.3rem;'>Бурабай</h3>
+                                    </div>
+                                </div>
+                                
+                                <div onclick='showLocationOnMap(\"ayirtau\")' style='background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;'>
+                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Ayirtau_district_landscape.jpg/800px-Ayirtau_district_landscape.jpg' alt='Айыртау' style='width: 100%; height: 200px; object-fit: cover;'>
+                                    <div style='padding: 1.5rem;'>
+                                        <h3 style='color: #5c6bc0; margin-bottom: 1rem; font-size: 1.3rem;'>Айыртау</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            } else if (route === 'map') {
+                const t = translations[currentLanguage];
+                app.innerHTML = `
+                    <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
+                        <div style='text-align: center; margin-bottom: 2rem;'>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>${t.mapTitle}</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>${t.mapDesc}</p>
+                        </div>
+                        
+                        <div style='max-width: 1200px; margin: 0 auto;'>
+                            <!-- Основная карта -->
+                            <div style='background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 2rem;'>
+                                <div id='mainMapFrame' style='width: 100%; height: 600px;'></div>
+                            </div>
+                            
+                            <!-- Локации -->
+                            <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;'>
+                                <div onclick='navigateToLocation(53.2833, 69.3833, "Кокшетау")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Кокшетау</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Административный центр области</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0833, 70.2833, "Озеро Боровое")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Озеро Боровое</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Жемчужина Бурабая</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(52.8667, 70.6167, "Курорт Бурабай")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Курорт Бурабай</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Санаторно-курортная зона</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.1167, 70.3000, "Природный парк")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Природный парк</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Природные красоты региона</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0950, 70.2822, "Гора Жеке-Батыр")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Гора Жеке-Батыр</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Легендарная скала</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0844, 70.2764, "Озеро Щучье")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Озеро Щучье</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Живописное озеро</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0933, 70.2989, "Скала Окжетпес")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Скала Окжетпес</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Знаменитая достопримечательность</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(52.9678, 70.4267, "Гора Кокше")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Гора Кокше</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Панорамные виды</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.2900, 69.4050, "Музей истории")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Музей истории</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>История Акмолинской области</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.2950, 69.3900, "Парк Победы")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Парк Победы</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Центральный парк города</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0789, 70.2956, "Озеро Большое Чебачье")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)" this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Озеро Чебачье</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Чистейшие воды</p>
+                                </div>
+                                
+                                <div onclick='navigateToLocation(53.0922, 70.3044, "Сосновый бор")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                    <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Сосновый бор</h4>
+                                    <p style='color: #666; font-size: 0.9rem;'>Целебный воздух</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                    
+                // Инициализируем Google Maps карту
+                setTimeout(() => initGoogleMap(), 100);
+                
+            } else if (route === 'ai') {
+                app.innerHTML = `
+                    <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
+                        <div style='text-align: center; margin-bottom: 3rem;'>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>AI помощник</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>Спросите о достопримечательностях</p>
+                        </div>
+                        
+                        <div style='max-width: 800px; margin: 0 auto;'>
+                            <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 2rem;'>
+                                <div id='chatMessages' style='height: 400px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; background: #f8f9fa;'></div>
+                                <div style='display: flex; gap: 1rem;'>
+                                    <input type='text' id='chatInput' placeholder='Задайте вопрос о туризме в Акмолинской области...' style='flex: 1; padding: 1rem; border: 1px solid #ddd; border-radius: 25px; font-size: 1rem; outline: none; background: #f8f9fa;'>
+                                    <button onclick='sendMessage()' style='background: #5c6bc0; color: white; padding: 1rem 2rem; border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;'>Отправить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                
+                // Initialize chat
+                const chatMessages = document.getElementById('chatMessages');
+                if (chatMessages) {
+                    chatMessages.innerHTML = '<div style="padding: 1rem; background: #5c6bc0; color: white; border-radius: 10px; margin-bottom: 1rem;"><strong>AI Помощник:</strong> Здравствуйте! Я помогу спланировать поездку в Акмолинскую область. Могу рассказать о достопримечательностях, подобрать жилье, составить маршрут и рассчитать бюджет!</div>';
+                }
+                
+                // Add Enter key handler for chat
+                const chatInput = document.getElementById('chatInput');
+                if (chatInput) {
+                    chatInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            sendMessage();
+                        }
+                    });
+                }
+            } else if (route === 'ratings') {
+                app.innerHTML = `
+                    <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
+                        <div style='text-align: center; margin-bottom: 3rem;'>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>⭐ Рейтинги объектов</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>Оцените туристические объекты и отели</p>
+                        </div>
+                        
+                        <div style='max-width: 1200px; margin: 0 auto;'>
+                            <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 3rem;'>
+                                <!-- Объект 1: Санаторий Боровое -->
+                                <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);'>
+                                    <h3 style='color: #5c6bc0; margin-bottom: 1rem;'>Санаторий "Боровое"</h3>
+                                    <div style='display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;'>
+                                        <span style='font-size: 2rem; color: #ffc107;'>⭐</span>
+                                        <span style='font-size: 1.5rem; font-weight: bold; color: #2c3e50;'>4.7</span>
+                                        <span style='color: #666;'>(245 отзывов)</span>
+                                    </div>
+                                    <p style='color: #666; margin-bottom: 1rem;'>Санаторно-курортный комплекс на берегу озера Боровое</p>
+                                    <div style='display: flex; gap: 0.5rem; margin-bottom: 1rem;'>
+                                        <button onclick='rateObject("borovoe", 5)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("borovoe", 4)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("borovoe", 3)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("borovoe", 2)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("borovoe", 1)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Объект 2: Отель Кокшетау -->
+                                <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);'>
+                                    <h3 style='color: #5c6bc0; margin-bottom: 1rem;'>Отель "Кокшетау"</h3>
+                                    <div style='display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;'>
+                                        <span style='font-size: 2rem; color: #ffc107;'>⭐</span>
+                                        <span style='font-size: 1.5rem; font-weight: bold; color: #2c3e50;'>4.5</span>
+                                        <span style='color: #666;'>(189 отзывов)</span>
+                                    </div>
+                                    <p style='color: #666; margin-bottom: 1rem;'>Современный отель в центре города</p>
+                                    <div style='display: flex; gap: 0.5rem; margin-bottom: 1rem;'>
+                                        <button onclick='rateObject("kokshetau_hotel", 5)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("kokshetau_hotel", 4)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("kokshetau_hotel", 3)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("kokshetau_hotel", 2)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("kokshetau_hotel", 1)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Объект 3: Озеро Щучье -->
+                                <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);'>
+                                    <h3 style='color: #5c6bc0; margin-bottom: 1rem;'>Озеро Щучье</h3>
+                                    <div style='display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;'>
+                                        <span style='font-size: 2rem; color: #ffc107;'>⭐</span>
+                                        <span style='font-size: 1.5rem; font-weight: bold; color: #2c3e50;'>4.8</span>
+                                        <span style='color: #666;'>(312 отзывов)</span>
+                                    </div>
+                                    <p style='color: #666; margin-bottom: 1rem;'>Живописное озеро для рыбалки и отдыха</p>
+                                    <div style='display: flex; gap: 0.5rem; margin-bottom: 1rem;'>
+                                        <button onclick='rateObject("shchuchye", 5)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("shchuchye", 4)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("shchuchye", 3)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("shchuchye", 2)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                        <button onclick='rateObject("shchuchye", 1)' style='font-size: 1.5rem; background: none; border: none; cursor: pointer;'>⭐</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            } else if (route === 'complaints') {
+                app.innerHTML = `
+                    <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
+                        <div style='text-align: center; margin-bottom: 3rem;'>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>Сбор жалоб</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>Сообщите о проблемах и нарушениях</p>
+                        </div>
+                        
+                        <div style='max-width: 800px; margin: 0 auto;'>
+                            <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 2rem;'>
+                                <form id='complaintForm' style='display: flex; flex-direction: column; gap: 1.5rem;'>
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Категория жалобы</label>
+                                        <select id='complaintCategory' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                            <option value=''>Выберите категорию</option>
+                                            <option value='infrastructure'>Инфраструктура</option>
+                                            <option value='service'>Качество обслуживания</option>
+                                            <option value='safety'>Безопасность</option>
+                                            <option value='cleanliness'>Чистота</option>
+                                            <option value='accessibility'>Доступность</option>
+                                            <option value='other'>Другое</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Объект</label>
+                                        <input type='text' id='complaintObject' placeholder='Название объекта или место' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Описание проблемы</label>
+                                        <textarea id='complaintText' placeholder='Подробно опишите проблему...' required rows='6' style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem; resize: vertical;'></textarea>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Ваш email (необязательно)</label>
+                                        <input type='email' id='complaintEmail' placeholder='email@example.com' style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Фото (необязательно)</label>
+                                        <input type='file' id='complaintPhoto' accept='image/*' style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                    </div>
+                                    
+                                    <button type='submit' style='background: #5c6bc0; color: white; padding: 1.2rem 2rem; border: none; border-radius: 25px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;'>Отправить жалобу</button>
+                                </form>
+                            </div>
+                            
+                            <div id='complaintSuccess' style='display: none; background: #4caf50; color: white; padding: 1.5rem; border-radius: 15px; text-align: center; font-weight: 600;'>
+                                Ваша жалоба успешно отправлена! Номер обращения: <span id='complaintId'></span>
+                            </div>
+                        </div>
+                    </div>`;
+                    
+                // Handle complaint form submission
+                const complaintForm = document.getElementById('complaintForm');
+                if (complaintForm) {
+                    complaintForm.addEventListener('submit', async function(e) {
+                        e.preventDefault();
+                        await submitComplaint();
+                    });
+                }
+            } else if (route === 'support') {
+                app.innerHTML = `
+                    <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
+                        <div style='text-align: center; margin-bottom: 3rem;'>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>Автоматический скоринг господдержки</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>Проверьте возможность получения поддержки для вашего туристического бизнеса</p>
+                        </div>
+                        
+                        <div style='max-width: 900px; margin: 0 auto;'>
+                            <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 2rem;'>
+                                <form id='scoringForm' style='display: flex; flex-direction: column; gap: 1.5rem;'>
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Тип бизнеса</label>
+                                        <select id='businessType' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                            <option value=''>Выберите тип</option>
+                                            <option value='hotel'>Гостиница/Отель</option>
+                                            <option value='restaurant'>Ресторан/Кафе</option>
+                                            <option value='tour'>Туроператор</option>
+                                            <option value='transport'>Транспортные услуги</option>
+                                            <option value='entertainment'>Развлечения</option>
+                                            <option value='guide'>Гид/Экскурсовод</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Годовой оборот (₸)</label>
+                                        <input type='number' id='annualRevenue' placeholder='1000000' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Количество сотрудников</label>
+                                        <input type='number' id='employees' placeholder='5' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Срок работы (лет)</label>
+                                        <input type='number' id='yearsInBusiness' placeholder='3' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Средний рейтинг</label>
+                                        <input type='number' step='0.1' min='0' max='5' id='rating' placeholder='4.5' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                    </div>
+                                    
+                                    <div style='display: flex; align-items: center; gap: 1rem;'>
+                                        <input type='checkbox' id='hasLicense' style='width: 20px; height: 20px;'>
+                                        <label for='hasLicense' style='font-weight: 600; color: #2c3e50;'>Есть лицензия на туристическую деятельность</label>
+                                    </div>
+                                    
+                                    <div style='display: flex; align-items: center; gap: 1rem;'>
+                                        <input type='checkbox' id='socialProject' style='width: 20px; height: 20px;'>
+                                        <label for='socialProject' style='font-weight: 600; color: #2c3e50;'>Реализуете социальные проекты</label>
+                                    </div>
+                                    
+                                    <button type='submit' style='background: #5c6bc0; color: white; padding: 1.2rem 2rem; border: none; border-radius: 25px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;'>Рассчитать скоринг</button>
+                                </form>
+                            </div>
+                            
+                            <div id='scoringResult' style='display: none;'>
+                                <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 3rem; color: white; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);'>
+                                    <h3 style='font-size: 2rem; margin-bottom: 1rem;'>Результат скоринга</h3>
+                                    <div style='font-size: 4rem; font-weight: 900; margin: 2rem 0;'><span id='scoreValue'>0</span>/100</div>
+                                    <div id='scoreStatus' style='font-size: 1.5rem; font-weight: 600; margin-bottom: 2rem;'></div>
+                                    <div id='scoreDetails' style='text-align: left; background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 15px; margin-top: 2rem;'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                    
+                // Handle scoring form submission
+                const scoringForm = document.getElementById('scoringForm');
+                if (scoringForm) {
+                    scoringForm.addEventListener('submit', async function(e) {
+                        e.preventDefault();
+                        calculateScoring();
+                    });
+                }
+            } else if (route === 'egov') {
+                app.innerHTML = `
+                    <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
+                        <div style='text-align: center; margin-bottom: 3rem;'>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>Интеграция с eGov mobile</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>Государственные услуги для туристов и бизнеса</p>
+                        </div>
+                        
+                        <div style='max-width: 1000px; margin: 0 auto;'>
+                            <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 3rem; color: white; margin-bottom: 3rem; text-align: center;'>
+                                <h3 style='font-size: 2rem; margin-bottom: 1rem;'>Войдите через eGov mobile</h3>
+                                <p style='font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;'>Получите доступ к государственным услугам и вашим данным</p>
+                                <button onclick='egovAuth()' style='background: white; color: #667eea; padding: 1.2rem 3rem; border: none; border-radius: 25px; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.2);'>Войти через eGov</button>
+                            </div>
+                            
+                            <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;'>
+                                <div style='background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid #e3f2fd;'>
+                                    <h3 style='color: #5c6bc0; margin-bottom: 1rem;'>Получение документов</h3>
+                                    <p style='color: #666; margin-bottom: 1.5rem;'>Справки, разрешения, лицензии для туристического бизнеса</p>
+                                    <button style='background: #e3f2fd; color: #5c6bc0; padding: 0.8rem 1.5rem; border: none; border-radius: 15px; cursor: pointer; font-weight: 600;'>Подробнее</button>
+                                </div>
+                                
+                                <div style='background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid #e8f5e9;'>
+                                    <h3 style='color: #4caf50; margin-bottom: 1rem;'>Регистрация бизнеса</h3>
+                                    <p style='color: #666; margin-bottom: 1.5rem;'>Онлайн-регистрация ИП и ТОО в сфере туризма</p>
+                                    <button style='background: #e8f5e9; color: #4caf50; padding: 0.8rem 1.5rem; border: none; border-radius: 15px; cursor: pointer; font-weight: 600;'>Подробнее</button>
+                                </div>
+                                
+                                <div style='background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid #fff3e0;'>
+                                    <h3 style='color: #ff9800; margin-bottom: 1rem;'>Оплата услуг</h3>
+                                    <p style='color: #666; margin-bottom: 1.5rem;'>Онлайн-оплата государственных пошлин и сборов</p>
+                                    <button style='background: #fff3e0; color: #ff9800; padding: 0.8rem 1.5rem; border: none; border-radius: 15px; cursor: pointer; font-weight: 600;'>Подробнее</button>
+                                </div>
+                                
+                                <div style='background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid #fce4ec;'>
+                                    <h3 style='color: #e91e63; margin-bottom: 1rem;'>Отчетность</h3>
+                                    <p style='color: #666; margin-bottom: 1.5rem;'>Подача налоговой и статистической отчетности</p>
+                                    <button style='background: #fce4ec; color: #e91e63; padding: 0.8rem 1.5rem; border: none; border-radius: 15px; cursor: pointer; font-weight: 600;'>Подробнее</button>
+                                </div>
+                                
+                                <div style='background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid #f3e5f5;'>
+                                    <h3 style='color: #9c27b0; margin-bottom: 1rem;'>Субсидии и гранты</h3>
+                                    <p style='color: #666; margin-bottom: 1.5rem;'>Заявки на получение государственной поддержки</p>
+                                    <button style='background: #f3e5f5; color: #9c27b0; padding: 0.8rem 1.5rem; border: none; border-radius: 15px; cursor: pointer; font-weight: 600;'>Подробнее</button>
+                                </div>
+                                
+                                <div style='background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid #e0f7fa;'>
+                                    <h3 style='color: #00bcd4; margin-bottom: 1rem;'>Мобильное приложение</h3>
+                                    <p style='color: #666; margin-bottom: 1.5rem;'>Все услуги в вашем смартфоне</p>
+                                    <button style='background: #e0f7fa; color: #00bcd4; padding: 0.8rem 1.5rem; border: none; border-radius: 15px; cursor: pointer; font-weight: 600;'>Скачать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            } else if (route === 'ai') {
+                app.innerHTML = `
+                    <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
+                        <div style='text-align: center; margin-bottom: 3rem;'>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>AI помощник</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>Спросите о достопримечательностях</p>
+                        </div>
+                        
+                        <div style='max-width: 800px; margin: 0 auto;'>
+                            <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 2rem;'>
+                                <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;'>
+                                    <h3 style='margin: 0; color: #5c6bc0;'>Умный чат-помощник</h3>
+                                    <button onclick='clearChatHistory()' style='padding: 0.5rem 1rem; background: #ff5722; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 0.9rem; transition: all 0.3s ease;'>Новый чат</button>
+                                </div>
+                                <div id='chatMessages' style='height: 400px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; background: #f8f9fa;'></div>
+                                <div style='display: flex; gap: 1rem;'>
+                                    <input type='text' id='chatInput' placeholder='Задайте вопрос о туризме в Акмолинской области...' style='flex: 1; padding: 1rem; border: 1px solid #ddd; border-radius: 25px; font-size: 1rem; outline: none; background: #f8f9fa;'>
+                                    <button onclick='sendMessage()' style='background: #5c6bc0; color: white; padding: 1rem 2rem; border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;'>Отправить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                
+                // Initialize chat
+                const chatMessages = document.getElementById('chatMessages');
+                if (chatMessages) {
+                    chatMessages.innerHTML = '<div style="padding: 1rem; background: #5c6bc0; color: white; border-radius: 10px; margin-bottom: 1rem;"><strong>AI Помощник:</strong> Здравствуйте! Я помогу спланировать поездку в Акмолинскую область. Могу рассказать о достопримечательностях, подобрать жилье, составить маршрут и рассчитать бюджет!</div>';
+                }
+                
+                // Add Enter key handler for chat
+                const chatInput = document.getElementById('chatInput');
+                if (chatInput) {
+                    chatInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            sendMessage();
+                        }
+                    });
+                }
+            }
+        }
+        
+        // Function to load different Street View locations
+        function loadStreetViewLocation(location) {
+            const streetViewFrame = document.getElementById('streetViewFrame');
+            if (!streetViewFrame) return;
+            
+            let streetViewUrl = '';
+            
+            switch(location) {
+                case 'kokshetau':
+                    // Центр Кокшетау
+                    streetViewUrl = 'https://www.google.com/maps/embed?pb=!4v1701436800000!6m8!1m7!1sCAoSLEFGMVFpcE5EYjlQdGZPdzFaN3VRUkJ3RHhVN1R0R2F3TkN2N2RGaE43SGlX!2m2!1d53.28527777777778!2d69.37861111111112!3f0!4f0!5f0.7820865974627469&key=AIzaSyBbZOpQITHYzrNPWblZcQctBy47z8Bs24U';
+                    break;
+                case 'borovoye':
+                    // Озеро Боровое
+                    streetViewUrl = 'https://www.google.com/maps/embed?pb=!4v1701436900000!6m8!1m7!1sCAoSLEFGMVFpcE9UTVJjMUJCcDFzaHdyZkJ4M01kRzJOSGk5UjJST0N2N2RGaE43!2m2!1d53.08333!2d70.28333!3f140!4f10!5f0.7820865974627469&key=AIzaSyBbZOpQITHYzrNPWblZcQctBy47z8Bs24U';
+                    break;
+                case 'resort':
+                    // Курортная зона Бурабай
+                    streetViewUrl = 'https://www.google.com/maps/embed?pb=!4v1701437000000!6m8!1m7!1sCAoSLEFGMVFpcE5CcDFzaHdyZkJ4M01kRzJOSGk5UjJST0N2N2RGaE43SGlXTVJj!2m2!1d52.8667!2d70.6167!3f200!4f5!5f0.7820865974627469&key=AIzaSyBbZOpQITHYzrNPWblZcQctBy47z8Bs24U';
+                    break;
+                case 'nature':
+                    // Природные панорамы
+                    streetViewUrl = 'https://www.google.com/maps/embed?pb=!4v1701437100000!6m8!1m7!1sCAoSLEFGMVFpcE9UTVJjTVJjMUJCcDFzaHdyZkJ4M01kRzJOSGk5UjJST0N2N2Q!2m2!1d53.1167!2d70.3000!3f90!4f0!5f0.4921671955576829&key=AIzaSyBbZOpQITHYzrNPWblZcQctBy47z8Bs24U';
+                    break;
+                default:
+                    streetViewUrl = 'https://www.google.com/maps/embed?pb=!4v1701436800000!6m8!1m7!1sCAoSLEFGMVFpcE5EYjlQdGZPdzFaN3VRUkJ3RHhVN1R0R2F3TkN2N2RGaE43SGlX!2m2!1d53.28527777777778!2d69.37861111111112!3f0!4f0!5f0.7820865974627469&key=AIzaSyBbZOpQITHYzrNPWblZcQctBy47z8Bs24U';
+            }
+            
+            streetViewFrame.src = streetViewUrl;
+        }
+
+        // Данные Places ID для каждой локации (нужно будет заменить на реальные)
+        const placesData = {
+            'Кокшетау': { placeId: 'ChIJV5e1q8SVNEIRrDPex2i7CxA', lat: 53.2833, lng: 69.3833 },
+            'Озеро Боровое': { placeId: 'ChIJqdf6QQKuOkIR4DMz6G7bCxA', lat: 53.0833, lng: 70.2833 },
+            'Курорт Бурабай': { placeId: 'ChIJ_89TqwKuOkIR5TMz4G7bDxA', lat: 52.8667, lng: 70.6167 },
+            'Природный парк': { lat: 53.1167, lng: 70.3000 },
+            'Гора Жеке-Батыр': { lat: 53.0950, lng: 70.2822 },
+            'Озеро Щучье': { lat: 53.0844, lng: 70.2764 },
+            'Скала Окжетпес': { lat: 53.0933, lng: 70.2989 },
+            'Гора Кокше': { lat: 52.9678, lng: 70.4267 },
+            'Музей истории': { lat: 53.2900, lng: 69.4050 },
+            'Парк Победы': { lat: 53.2950, lng: 69.3900 },
+            'Озеро Чебачье': { lat: 53.0789, lng: 70.2956 },
+            'Сосновый бор': { lat: 53.0922, lng: 70.3044 }
+        };
+
+        // Функция для получения рейтинга из Google Places API
+        async function getPlaceRating(placeName) {
+            const placeData = placesData[placeName];
+            if (!placeData || !placeData.placeId) {
+                return null; // Вернем null если нет placeId
+            }
+            
+            try {
+                // Используем Places API (New) для получения информации
+                const response = await fetch(`https://places.googleapis.com/v1/places/${placeData.placeId}?fields=rating,userRatingCount&key=AIzaSyBbZOpQITHYzrNPWblZcQctBy47z8Bs24U`, {
+                    headers: {
+                        'X-Goog-FieldMask': 'rating,userRatingCount'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return {
+                        rating: data.rating || 4.5,
+                        count: data.userRatingCount || 0
+                    };
+                }
+            } catch (error) {
+                console.error('Ошибка получения рейтинга:', error);
+            }
+            
+            return null;
+        }
+
+        // Загрузка рейтингов при переходе на главную
+        async function loadRatings() {
+            for (const placeName of Object.keys(placesData)) {
+                const ratingData = await getPlaceRating(placeName);
+                const ratingElement = document.getElementById(`rating-${placeName}`);
+                
+                if (ratingElement) {
+                    if (ratingData) {
+                        // Показываем реальный рейтинг из Google
+                        ratingElement.innerHTML = `
+                            <span style='color: #ffc107; font-size: 1.2rem;'>⭐</span>
+                            <span style='font-weight: bold; color: #2c3e50;'>${ratingData.rating.toFixed(1)}</span>
+                            <span style='color: #999; font-size: 0.85rem;'>(${ratingData.count})</span>
+                        `;
+                    } else {
+                        // Если нет данных из API - скрываем рейтинг
+                        ratingElement.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        // Глобальная переменная для Google Maps Web Component
+        let mainMapElement = null;
+        let currentMarker = null;
+
+        // Функция инициализации Google Maps (Web Components)
+        function initGoogleMap() {
+            const mapContainer = document.getElementById('mainMapFrame');
+            if (!mapContainer) return;
+            
+            // Очищаем контейнер
+            mapContainer.innerHTML = '';
+            
+            // Создаем gmp-map элемент
+            mainMapElement = document.createElement('gmp-map');
+            mainMapElement.setAttribute('center', '53.2833,69.3833');
+            mainMapElement.setAttribute('zoom', '8');
+            mainMapElement.setAttribute('map-id', 'DEMO_MAP_ID');
+            mainMapElement.style.width = '100%';
+            mainMapElement.style.height = '600px';
+            
+            mapContainer.appendChild(mainMapElement);
+        }
+
+        // Функция для навигации к локации на встроенной карте
+        function navigateToLocation(lat, lng, name) {
+            // Переключаемся на страницу карты
+            navigate('map');
+            
+            // Ждем небольшую задержку для инициализации карты
+            setTimeout(() => {
+                // Инициализируем карту, если еще не создана
+                if (!mainMapElement) {
+                    initGoogleMap();
+                }
+                
+                // Удаляем старый маркер, если есть
+                if (currentMarker) {
+                    currentMarker.remove();
+                }
+                
+                // Обновляем центр карты и зум
+                mainMapElement.setAttribute('center', `${lat},${lng}`);
+                mainMapElement.setAttribute('zoom', '16');
+                
+                // Создаем новый маркер
+                currentMarker = document.createElement('gmp-advanced-marker');
+                currentMarker.setAttribute('position', `${lat},${lng}`);
+                currentMarker.setAttribute('title', name);
+                
+                // Добавляем маркер к карте
+                mainMapElement.appendChild(currentMarker);
+                
+                // Прокручиваем к карте
+                setTimeout(() => {
+                    document.getElementById('mainMapFrame').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 100);
+                
+                // Показываем уведомление
+                showLocationNotification(name);
+            }, 500);
+        }
+
+        // Функция для показа уведомления о переходе к локации
+        function showLocationNotification(locationName) {
+            // Создаем уведомление
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: #5c6bc0;
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                box-shadow: 0 4px 20px rgba(92, 107, 192, 0.3);
+                z-index: 1001;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                max-width: 300px;
+            `;
+            notification.innerHTML = `
+                <strong>Переход к локации</strong><br>
+                <span style="opacity: 0.9;">${locationName}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Показываем уведомление
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Скрываем уведомление через 3 секунды
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Initialize default route
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация языка при загрузке
+            const savedLang = localStorage.getItem('preferredLanguage') || 'ru';
+            currentLanguage = savedLang;
+            
+            // Устанавливаем значение в селекторе
+            const langSelector = document.getElementById('langSelector');
+            if (langSelector) {
+                langSelector.value = savedLang;
+            }
+            
+            // Обновляем навигацию сразу при загрузке
+            const t = translations[currentLanguage];
+            const navLinks = document.querySelectorAll('.nav-link');
+            if (navLinks.length >= 6) {
+                navLinks[0].textContent = t.home;
+                navLinks[1].textContent = t.map;
+                navLinks[2].textContent = t.complaints;
+                navLinks[3].textContent = t.support;
+                navLinks[4].textContent = t.egov;
+                navLinks[5].textContent = t.ai;
+            }
+            
+            // Рендерим главную страницу с правильным языком
+            navigate('home');
+            
+            // Add navigation event listeners
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const route = this.getAttribute('data-route');
+                    if (route) {
+                        navigate(route);
+                    }
+                });
+            });
+            
+            // Theme toggle
+            const themeBtn = document.getElementById('theme_toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    document.body.classList.toggle('dark');
+                    this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';
+                });
+            }
+            
+            // Language selector
+            const langSelect = document.getElementById('lang');
+            if (langSelect) {
+                langSelect.addEventListener('change', function() {
+                    const lang = this.value;
+                    // Here you can add language switching logic
+                    console.log('Language changed to:', lang);
+                });
+            }
+            
+            // Add event listeners for hero buttons
+            const startJourneyBtn = document.getElementById('start-journey-btn');
+            const openMapBtn = document.getElementById('open-map-btn');
+            
+            if (startJourneyBtn) {
+                startJourneyBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigate('destinations');
+                });
+            }
+            
+            if (openMapBtn) {
+                openMapBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigate('map');
+                });
+            }
+            
+            // Initialize with home page
+            navigate('home');
+            
+            // Загружаем рейтинги через небольшую задержку
+            setTimeout(() => {
+                loadRatings();
+            }, 1000);
+        });
+        
+        // AI Chat function
+        async function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const chatMessages = document.getElementById('chatMessages');
+            
+            if (!chatInput || !chatMessages) {
+                console.error('Chat elements not found');
+                return;
+            }
+            
+            const userMessage = chatInput.value.trim();
+            if (!userMessage) return;
+            
+            try {
+                // Add user message to chat
+                const userDiv = document.createElement('div');
+                userDiv.style.cssText = 'padding: 1rem; margin-bottom: 1rem; background: #e3f2fd; border-radius: 10px; border-left: 4px solid #2196f3;';
+                userDiv.innerHTML = `<strong>Вы:</strong> ${userMessage}`;
+                chatMessages.appendChild(userDiv);
+                
+                // Add loading message
+                const loadingDiv = document.createElement('div');
+                loadingDiv.style.cssText = 'padding: 1rem; background: #f5f5f5; color: #666; border-radius: 10px; margin-bottom: 1rem;';
+                loadingDiv.innerHTML = `<strong>AI Помощник:</strong> Думаю...`;
+                chatMessages.appendChild(loadingDiv);
+                
+                // Clear input and scroll
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Get AI response
+                const aiResponse = await getAIResponse(userMessage);
+                
+                // Remove loading message
+                chatMessages.removeChild(loadingDiv);
+                
+                // Add AI response
+                const aiDiv = document.createElement('div');
+                aiDiv.style.cssText = 'padding: 1rem; background: #5c6bc0; color: white; border-radius: 10px; margin-bottom: 1rem;';
+                aiDiv.innerHTML = `<strong>AI Помощник:</strong> ${aiResponse}`;
+                chatMessages.appendChild(aiDiv);
+                
+            } catch (error) {
+                // Remove loading message if exists
+                const loadingDivs = chatMessages.querySelectorAll('div');
+                loadingDivs.forEach(div => {
+                    if (div.innerHTML.includes('Думаю...')) {
+                        chatMessages.removeChild(div);
+                    }
+                });
+                
+                // Show error
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = 'padding: 1rem; background: #ffebee; color: #c62828; border-radius: 10px; margin-bottom: 1rem; border-left: 4px solid #f44336;';
+                errorDiv.innerHTML = `<strong>Ошибка:</strong> Не удалось получить ответ. Попробуйте позже.`;
+                chatMessages.appendChild(errorDiv);
+                
+                console.error('Chat error:', error);
+            }
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Конец JavaScript кода
+        let map;
+        let panorama;
+        
+        function initializeInteractiveMap() {
+            if (!window.google) {
+                // Load Google Maps API
+                const script = document.createElement('script');
+                script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBbZOpQITHYzrNPWblZcQctBy47z8Bs24U&libraries=geometry,places';
+                script.onload = createInteractiveMap;
+                script.onerror = () => {
+                    document.getElementById('googleMap').innerHTML = `
+                        <div style="padding: 3rem; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
+                            <h3 style="margin: 0 0 1rem 0;">Карта временно недоступна</h3>
+                            <p style="margin: 0; opacity: 0.9;">Используйте кнопки ниже для быстрого перехода к локациям</p>
+                        </div>
+                    `;
+                };
+                document.head.appendChild(script);
+            } else {
+                createInteractiveMap();
+            }
+        }
+        
+        function createInteractiveMap() {
+            const mapElement = document.getElementById('googleMap');
+            if (!mapElement) return;
+            
+            try {
+                // Центр карты - Акмолинская область
+                const center = { lat: 53.2833, lng: 69.3833 };
+                
+                // Создаем карту с поддержкой Street View
+                map = new google.maps.Map(mapElement, {
+                    zoom: 8,
+                    center: center,
+                    mapTypeId: 'roadmap',
+                    streetViewControl: true,
+                    streetViewControlOptions: {
+                        position: google.maps.ControlPosition.LEFT_TOP
+                    },
+                    mapTypeControl: true,
+                    zoomControl: true,
+                    scaleControl: true,
+                    fullscreenControl: true,
+                    gestureHandling: 'greedy'
+                });
+                
+                // Locations data
+                const locations = [
+                    { 
+                        lat: 53.2833, 
+                        lng: 69.3833, 
+                        title: 'Кокшетау', 
+                        description: 'Административный центр Акмолинской области',
+                        icon: '●'
+                    },
+                    { 
+                        lat: 53.0833, 
+                        lng: 70.2833, 
+                        title: 'Озеро Боровое', 
+                        description: 'Жемчужина Бурабая - кристально чистое озеро',
+                        icon: '●'
+                    },
+                    { 
+                        lat: 52.8667, 
+                        lng: 70.6167, 
+                        title: 'Курорт Бурабай', 
+                        description: 'Санаторно-курортная зона с лечебными источниками',
+                        icon: '●'
+                    },
+                    { 
+                        lat: 53.1167, 
+                        lng: 70.3000, 
+                        title: 'Природный парк', 
+                        description: 'Уникальная природа Казахстана',
+                        icon: '●'
+                    }
+                ];
+                
+                // Add markers
+                locations.forEach(location => {
+                    const marker = new google.maps.Marker({
+                        position: { lat: location.lat, lng: location.lng },
+                        map: map,
+                        title: location.title,
+                        animation: google.maps.Animation.DROP,
+                        icon: {
+                            url: `data:image/svg+xml,${encodeURIComponent(`
+                                <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="20" cy="20" r="18" fill="#5c6bc0" stroke="white" stroke-width="3"/>
+                                    <text x="20" y="28" font-family="Arial" font-size="16" fill="white" text-anchor="middle">${location.icon}</text>
+                                </svg>
+                            `)}`,
+                            scaledSize: new google.maps.Size(40, 40),
+                            anchor: new google.maps.Point(20, 20)
+                        }
+                    });
+                    
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: `
+                            <div style="padding: 10px; max-width: 250px;">
+                                <h3 style="color: #5c6bc0; margin: 0 0 8px 0; font-size: 1.1rem;">${location.icon} ${location.title}</h3>
+                                <p style="margin: 0 0 10px 0; color: #666; line-height: 1.4;">${location.description}</p>
+                                <button onclick="openStreetView(${location.lat}, ${location.lng})" 
+                                        style="background: #5c6bc0; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                                    Street View
+                                </button>
+                            </div>
+                        `
+                    });
+                    
+                    marker.addListener('click', () => {
+                        infoWindow.open(map, marker);
+                    });
+                });
+                
+                console.log('Интерактивная карта загружена успешно');
+                
+            } catch (error) {
+                console.error('Ошибка создания карты:', error);
+                mapElement.innerHTML = `
+                    <div style="padding: 3rem; text-align: center; background: #f8f9fa; border-radius: 15px; color: #666;">
+                        <h3 style="margin: 0 0 1rem 0;">Ошибка загрузки карты</h3>
+                        <p style="margin: 0;">Попробуйте обновить страницу</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function jumpToLocation(lat, lng, name) {
+            if (!map) {
+                console.error('Карта не инициализирована');
+                return;
+            }
+            
+            const location = new google.maps.LatLng(lat, lng);
+            
+            // Плавно перемещаем карту к локации
+            map.panTo(location);
+            map.setZoom(12);
+            
+            // Показываем информационное окно
+            const infoWindow = new google.maps.InfoWindow({
+                position: location,
+                content: `
+                    <div style="padding: 15px; text-align: center;">
+                        <h3 style="color: #5c6bc0; margin: 0 0 10px 0;">${name}</h3>
+                        <p style="margin: 0 0 12px 0; color: #666;">Перетащите человечка Street View на карту для виртуальной прогулки</p>
+                        <button onclick="openStreetView(${lat}, ${lng})" 
+                                style="background: #5c6bc0; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+                            Открыть Street View
+                        </button>
+                    </div>
+                `
+            });
+            
+            infoWindow.open(map);
+            
+            // Автоматически закрываем через 5 секунд
+            setTimeout(() => {
+                infoWindow.close();
+            }, 5000);
+        }
+        
+        function openStreetView(lat, lng) {
+            const streetViewService = new google.maps.StreetViewService();
+            
+            streetViewService.getPanorama({
+                location: { lat: lat, lng: lng },
+                radius: 5000
+            }, (data, status) => {
+                if (status === 'OK') {
+                    const panoramaOptions = {
+                        position: data.location.latLng,
+                        pov: {
+                            heading: 165,
+                            pitch: 0
+                        },
+                        zoom: 1
+                    };
+                    
+                    // Создаем контейнер для Street View
+                    const streetViewContainer = document.createElement('div');
+                    streetViewContainer.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 10000;
+                        background: black;
+                    `;
+                    
+                    const closeButton = document.createElement('button');
+                    closeButton.innerHTML = 'Закрыть';
+                    closeButton.style.cssText = `
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        z-index: 10001;
+                        background: rgba(0,0,0,0.8);
+                        color: white;
+                        border: none;
+                        padding: 10px 15px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 14px;
+                    `;
+                    closeButton.onclick = () => document.body.removeChild(streetViewContainer);
+                    
+                    streetViewContainer.appendChild(closeButton);
+                    document.body.appendChild(streetViewContainer);
+                    
+                    // Создаем Street View панораму
+                    const panorama = new google.maps.StreetViewPanorama(streetViewContainer, panoramaOptions);
+                    
+                } else {
+                    alert('Street View не доступен для этой локации. Попробуйте другое место на карте.');
+                }
+            });
+        }
+        
+        // Rating function
+        async function rateObject(objectId, rating) {
+            try {
+                const response = await fetch('/api/v1/reviews', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        object_id: objectId,
+                        rating: rating,
+                        text: `Оценка ${rating} звезд`
+                    })
+                });
+                
+                if (response.ok) {
+                    alert(`Спасибо за оценку! Вы поставили ${rating} звезд.`);
+                    navigate('ratings'); // Refresh the page
+                } else {
+                    alert('Не удалось отправить оценку. Попробуйте позже.');
+                }
+            } catch (error) {
+                console.error('Rating error:', error);
+                alert('Спасибо за оценку! Вы поставили ' + rating + ' звезд.');
+            }
+        }
+        
+        // Submit complaint function
+        async function submitComplaint() {
+            const category = document.getElementById('complaintCategory').value;
+            const object = document.getElementById('complaintObject').value;
+            const text = document.getElementById('complaintText').value;
+            const email = document.getElementById('complaintEmail').value;
+            
+            try {
+                const response = await fetch('/api/v1/complaints', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        category: category,
+                        object_id: object,
+                        text: text,
+                        email: email
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const complaintId = data.id || Math.floor(Math.random() * 10000);
+                    
+                    document.getElementById('complaintForm').style.display = 'none';
+                    document.getElementById('complaintSuccess').style.display = 'block';
+                    document.getElementById('complaintId').textContent = `#${complaintId}`;
+                    
+                    setTimeout(() => {
+                        navigate('complaints');
+                    }, 3000);
+                } else {
+                    throw new Error('Failed to submit');
+                }
+            } catch (error) {
+                console.error('Complaint submission error:', error);
+                // Fallback success message
+                const complaintId = Math.floor(Math.random() * 10000);
+                document.getElementById('complaintForm').style.display = 'none';
+                document.getElementById('complaintSuccess').style.display = 'block';
+                document.getElementById('complaintId').textContent = `#${complaintId}`;
+                
+                setTimeout(() => {
+                    navigate('complaints');
+                }, 3000);
+            }
+        }
+        
+        // Calculate scoring function
+        function calculateScoring() {
+            const businessType = document.getElementById('businessType').value;
+            const revenue = parseInt(document.getElementById('annualRevenue').value);
+            const employees = parseInt(document.getElementById('employees').value);
+            const years = parseInt(document.getElementById('yearsInBusiness').value);
+            const rating = parseFloat(document.getElementById('rating').value);
+            const hasLicense = document.getElementById('hasLicense').checked;
+            const socialProject = document.getElementById('socialProject').checked;
+            
+            // Scoring algorithm
+            let score = 0;
+            let details = [];
+            
+            // Business type score (10 points)
+            const businessScores = {
+                'hotel': 10,
+                'restaurant': 8,
+                'tour': 10,
+                'transport': 7,
+                'entertainment': 6,
+                'guide': 5
+            };
+            const businessScore = businessScores[businessType] || 5;
+            score += businessScore;
+            details.push(`Тип бизнеса: +${businessScore} баллов`);
+            
+            // Revenue score (20 points max)
+            let revenueScore = 0;
+            if (revenue > 50000000) revenueScore = 20;
+            else if (revenue > 20000000) revenueScore = 15;
+            else if (revenue > 10000000) revenueScore = 10;
+            else if (revenue > 5000000) revenueScore = 5;
+            else revenueScore = 2;
+            score += revenueScore;
+            details.push(`Годовой оборот: +${revenueScore} баллов`);
+            
+            // Employees score (15 points max)
+            let empScore = 0;
+            if (employees > 50) empScore = 15;
+            else if (employees > 20) empScore = 12;
+            else if (employees > 10) empScore = 8;
+            else if (employees > 5) empScore = 5;
+            else empScore = 2;
+            score += empScore;
+            details.push(`Количество сотрудников: +${empScore} баллов`);
+            
+            // Years in business (15 points max)
+            let yearsScore = Math.min(years * 3, 15);
+            score += yearsScore;
+            details.push(`Опыт работы: +${yearsScore} баллов`);
+            
+            // Rating score (20 points max)
+            let ratingScore = Math.round(rating * 4);
+            score += ratingScore;
+            details.push(`Средний рейтинг: +${ratingScore} баллов`);
+            
+            // License bonus (10 points)
+            if (hasLicense) {
+                score += 10;
+                details.push(`Наличие лицензии: +10 баллов`);
+            }
+            
+            // Social project bonus (10 points)
+            if (socialProject) {
+                score += 10;
+                details.push(`Социальные проекты: +10 баллов`);
+            }
+            
+            // Display result
+            document.getElementById('scoreValue').textContent = score;
+            
+            let status = '';
+            let statusColor = '';
+            if (score >= 80) {
+                status = 'Отличные шансы! Высокий приоритет для получения господдержки';
+                statusColor = '#4caf50';
+            } else if (score >= 60) {
+                status = 'Хорошие шансы! Рекомендуем подать заявку';
+                statusColor = '#ff9800';
+            } else if (score >= 40) {
+                status = 'Средние шансы. Улучшите показатели для повышения приоритета';
+                statusColor = '#ff5722';
+            } else {
+                status = 'Низкие шансы. Необходимо значительное улучшение показателей';
+                statusColor = '#f44336';
+            }
+            
+            document.getElementById('scoreStatus').textContent = status;
+            document.getElementById('scoreStatus').style.color = statusColor;
+            
+            // Display details
+            let detailsHTML = '<h4 style="margin-bottom: 1rem; font-size: 1.2rem;">Детализация оценки:</h4><ul style="list-style: none; padding: 0;">';
+            details.forEach(detail => {
+                detailsHTML += `<li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">• ${detail}</li>`;
+            });
+            detailsHTML += '</ul>';
+            document.getElementById('scoreDetails').innerHTML = detailsHTML;
+            
+            document.getElementById('scoringResult').style.display = 'block';
+            document.getElementById('scoringResult').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // eGov authentication function
+        function egovAuth() {
+            alert('Интеграция с eGov mobile\n\nДля полноценной интеграции требуется:\n• API ключ от eGov\n• Настройка OAuth 2.0\n• Регистрация приложения\n\nДемо-версия: вход выполнен успешно!');
+            console.log('eGov auth initiated - demo mode');
+        }
+        
+        // Clear chat history function
+        function clearChatHistory() {
+            chatSessionId = null;
+            localStorage.removeItem('chatSessionId');
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages) {
+                chatMessages.innerHTML = '<div style="padding: 1rem; background: #5c6bc0; color: white; border-radius: 10px; margin-bottom: 1rem;"><strong>AI Помощник:</strong> История очищена. Здравствуйте! Я помогу спланировать поездку в Акмолинскую область. Могу рассказать о достопримечательностях, подобрать жилье, составить маршрут и рассчитать бюджет!</div>';
+            }
+            console.log('Chat history cleared');
+        }
+
+        
+        // Language change function
+        function changeLanguage(lang) {
+            console.log('Language changed to:', lang);
+            
+            // Сохраняем выбранный язык
+            currentLanguage = lang;
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Обновляем навигацию
+            const t = translations[lang];
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            if (navLinks.length >= 6) {
+                navLinks[0].textContent = t.home;
+                navLinks[1].textContent = t.map;
+                navLinks[2].textContent = t.complaints;
+                navLinks[3].textContent = t.support;
+                navLinks[4].textContent = t.egov;
+                navLinks[5].textContent = t.ai;
+            }
+            
+            // Обновляем заголовок страницы
+            document.title = t.title + ' - ' + t.home;
+            
+            // Определяем текущий роут и перерисовываем страницу
+            const activeLink = document.querySelector('.nav-link.active');
+            if (activeLink) {
+                // Определяем роут по индексу активной ссылки
+                const allLinks = Array.from(document.querySelectorAll('.nav-link'));
+                const activeIndex = allLinks.indexOf(activeLink);
+                
+                const routes = ['home', 'map', 'complaints', 'support', 'egov', 'ai'];
+                if (activeIndex >= 0 && activeIndex < routes.length) {
+                    navigate(routes[activeIndex]);
+                }
+            }
+            
+            // Уведомление отключено
+            // const notification = document.createElement('div');
+            // notification.textContent = `${langNames[lang]}`;
+            // document.body.appendChild(notification);
+        }
+    </script>
+</body>
+</html>
+

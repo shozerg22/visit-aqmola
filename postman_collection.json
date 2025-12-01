@@ -1,0 +1,54 @@
+{
+  "info": {
+    "name": "VisitAqmola API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/health"
+      }
+    },
+    {
+      "name": "AI Chat",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/api/v1/ai/chat",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"prompt\": \"Составь план на день\",\n  \"lang\": \"RU\"\n}"
+        }
+      }
+    },
+    {
+      "name": "OIDC Verify (mock)",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/v1/auth/oidc/verify?code=test"
+      }
+    },
+    {
+      "name": "Payments Webhook (mock)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/api/v1/payments/webhook",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event\": \"payment.succeeded\"\n}"
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000" },
+    { "key": "adminToken", "value": "changeme" }
+  ]
+}

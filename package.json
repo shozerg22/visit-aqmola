@@ -1,0 +1,11 @@
+{
+  "name": "visit-aqmola-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build:web": "node scripts/build-web.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.3"
+  }
+}

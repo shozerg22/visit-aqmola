@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=sqlite+aiosqlite:///./visit.db
+      - DISABLE_DB_INIT=0
+    volumes:
+      - ./visit.db:/app/visit.db
+      - ./src:/app/src
+    restart: unless-stopped
