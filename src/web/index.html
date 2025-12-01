@@ -26,10 +26,10 @@
                 <a href="#support" data-route="support" class="nav-link" style="color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 25px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">Господдержка</a>
                 <a href="#egov" data-route="egov" class="nav-link" style="color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 25px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">eGov</a>
                 <a href="#ai" data-route="ai" class="nav-link" style="color: white; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 25px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">AI</a>
-                <select id="langSelector" onchange="changeLanguage(this.value)" style="background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); color: white; padding: 0.6rem 1rem; border-radius: 15px; cursor: pointer; font-weight: 600;">
-                    <option value="ru">🇷🇺 RU</option>
-                    <option value="kz">🇰🇿 KZ</option>
-                    <option value="en">🇬🇧 EN</option>
+                <select id="langSelector" onchange="changeLanguage(this.value)" style="display: none; background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); color: white; padding: 0.6rem 1rem; border-radius: 15px; cursor: pointer; font-weight: 600;">
+                    <option value="ru">RU</option>
+                    <option value="kz">KZ</option>
+                    <option value="en">EN</option>
                 </select>
             </div>
         </nav>
@@ -166,7 +166,7 @@
         
         // AI response system with GPT integration
         // ЗАМЕНИТЕ ВАШ API КЛЮЧ ЗДЕСЬ
-        const GEMINI_API_KEY = 'YOUR_GOOGLE_AI_STUDIO_API_KEY_HERE';
+        const GEMINI_API_KEY = 'AIzaSyCsxmsMOJIMupyT0TEPZ_hjGnvTKe2p2ek';
         
         async function getAIResponse(message) {
             try {
@@ -683,7 +683,7 @@
                 app.innerHTML = `
                     <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
                         <div style='text-align: center; margin-bottom: 3rem;'>
-                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>⭐ Рейтинги объектов</h2>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'> Рейтинги объектов</h2>
                             <p style='color: #546e7a; font-size: 1.2rem;'>Оцените туристические объекты и отели</p>
                         </div>
                         
@@ -693,7 +693,7 @@
                                 <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);'>
                                     <h3 style='color: #5c6bc0; margin-bottom: 1rem;'>Санаторий "Боровое"</h3>
                                     <div style='display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;'>
-                                        <span style='font-size: 2rem; color: #ffc107;'>⭐</span>
+                                        <span style='font-size: 2rem; color: #ffc107;'></span>
                                         <span style='font-size: 1.5rem; font-weight: bold; color: #2c3e50;'>4.7</span>
                                         <span style='color: #666;'>(245 отзывов)</span>
                                     </div>
@@ -711,7 +711,7 @@
                                 <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);'>
                                     <h3 style='color: #5c6bc0; margin-bottom: 1rem;'>Отель "Кокшетау"</h3>
                                     <div style='display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;'>
-                                        <span style='font-size: 2rem; color: #ffc107;'>⭐</span>
+                                        <span style='font-size: 2rem; color: #ffc107;'></span>
                                         <span style='font-size: 1.5rem; font-weight: bold; color: #2c3e50;'>4.5</span>
                                         <span style='color: #666;'>(189 отзывов)</span>
                                     </div>
@@ -729,7 +729,7 @@
                                 <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);'>
                                     <h3 style='color: #5c6bc0; margin-bottom: 1rem;'>Озеро Щучье</h3>
                                     <div style='display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;'>
-                                        <span style='font-size: 2rem; color: #ffc107;'>⭐</span>
+                                        <span style='font-size: 2rem; color: #ffc107;'></span>
                                         <span style='font-size: 1.5rem; font-weight: bold; color: #2c3e50;'>4.8</span>
                                         <span style='color: #666;'>(312 отзывов)</span>
                                     </div>
