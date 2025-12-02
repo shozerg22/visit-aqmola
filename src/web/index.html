@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visit Akmola Region - Discover Kazakhstan's Heart</title>
+    <title>Visit Aqmola - Откройте для себя Акмолинскую область</title>
     <link rel="stylesheet" href="/static/styles.css">
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbZOpQITHYzrNPWblZcQctBy47z8Bs24U&callback=console.debug&libraries=maps,marker&v=beta"></script>
     <style>
@@ -292,7 +292,7 @@
         });
     </script>
     <script>
-        // Объект со всеми переводами
+        // Объект с переводами (только русский язык)
         const translations = {
             ru: {
                 title: 'Visit Aqmola',
@@ -334,93 +334,11 @@
                 chebachyeDesc: 'Чистейшие воды',
                 pine: 'Сосновый бор',
                 pineDesc: 'Целебный воздух'
-            },
-            kz: {
-                title: 'Visit Aqmola',
-                home: 'Басты бет',
-                map: 'Карта',
-                complaints: 'Шағымдар',
-                support: 'Мемлекеттік қолдау',
-                egov: 'eGov',
-                ai: 'AI',
-                heroTitle: 'Өзіңіз үшін ашыңыз',
-                heroSubtitle: 'Ақмола облысы',
-                heroDesc: 'Бурабай, Көкшетау және қазақ даласының қазыналарын зерттеңіз • 2025',
-                attractions: 'Көрікті жерлер',
-                attractionsDesc: 'Ақмола облысының сұлулықтарын ашыңыз',
-                mapTitle: 'Ақмола облысының картасы',
-                mapDesc: 'Аймақтың негізгі көрікті жерлері',
-                loading: 'Жүктелуде...',
-                kokshetau: 'Көкшетау',
-                kokshetauDesc: 'Әкімшілік орталық',
-                borovoe: 'Боровое көлі',
-                borovoeDesc: 'Бурабайдың інжу-маржаны',
-                burabay: 'Бурабай курорты',
-                burabayDesc: 'Санаторлық аймақ',
-                naturepark: 'Табиғи саябақ',
-                natureparkDesc: 'Ұлттық саябақ',
-                zhekebatyr: 'Жеке-Батыр тауы',
-                zhekebatyrDesc: 'Аңызға айналған жартас',
-                shuchye: 'Щучье көлі',
-                shuchyeDesc: 'Көркем көл',
-                okzhetpes: 'Оқжетпес жартасы',
-                okzhetpesDesc: 'Атақты жартас',
-                kokshe: 'Көкше тауы',
-                koksheDesc: 'Панорамалық көріністер',
-                museum: 'Тарих музейі',
-                museumDesc: 'Облыс тарихы',
-                parkpobedy: 'Жеңіс паркі',
-                parkpobeдyDesc: 'Орталық парк',
-                chebachye: 'Шебақты көлі',
-                chebachyeDesc: 'Таза сулар',
-                pine: 'Қарағай тоғайы',
-                pineDesc: 'Емдік ауа'
-            },
-            en: {
-                title: 'Visit Aqmola',
-                home: 'Home',
-                map: 'Map',
-                complaints: 'Complaints',
-                support: 'Government Support',
-                egov: 'eGov',
-                ai: 'AI',
-                heroTitle: 'Discover',
-                heroSubtitle: 'Akmola Region',
-                heroDesc: 'Explore Burabay, Kokshetau and treasures of the Kazakh steppe • 2025',
-                attractions: 'Attractions',
-                attractionsDesc: 'Discover the beauty of Akmola Region',
-                mapTitle: 'Map of Akmola Region',
-                mapDesc: 'Main attractions of the region',
-                loading: 'Loading...',
-                kokshetau: 'Kokshetau',
-                kokshetauDesc: 'Administrative center',
-                borovoe: 'Borovoye Lake',
-                borovoeDesc: 'Pearl of Burabay',
-                burabay: 'Burabay Resort',
-                burabayDesc: 'Sanatorium zone',
-                naturepark: 'Nature Park',
-                natureparkDesc: 'National park',
-                zhekebatyr: 'Zheke-Batyr Mountain',
-                zhekebatyrDesc: 'Legendary rock',
-                shuchye: 'Shchuchye Lake',
-                shuchyeDesc: 'Picturesque lake',
-                okzhetpes: 'Okzhetpes Rock',
-                okzhetpesDesc: 'Famous rock',
-                kokshe: 'Kokshe Mountain',
-                koksheDesc: 'Panoramic views',
-                museum: 'History Museum',
-                museumDesc: 'Regional history',
-                parkpobedy: 'Victory Park',
-                parkpobeдyDesc: 'Central park',
-                chebachye: 'Chebachye Lake',
-                chebachyeDesc: 'Crystal clear waters',
-                pine: 'Pine Forest',
-                pineDesc: 'Healing air'
             }
         };
 
-        // Глобальная переменная для текущего языка
-        let currentLanguage = localStorage.getItem('preferredLanguage') || 'ru';
+        // Глобальная переменная для текущего языка (всегда русский)
+        let currentLanguage = 'ru';
         
         function navigate(route) {
             console.log('Navigating to:', route);
@@ -470,7 +388,7 @@
                                     </div>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(52.8667, 70.6167, "Курорт Бурабай")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.095598489783946, 70.28425352164322, "Курорт Бурабай")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.burabay}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.burabayDesc}</p>
                                     <div id='rating-Курорт Бурабай' style='margin-top: 1rem; display: flex; gap: 0.3rem; justify-content: center;'>
@@ -478,47 +396,47 @@
                                     </div>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.1167, 70.3000, "Природный парк")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.08296382736395, 70.23504248997459, "Природный парк")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.naturepark}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.natureparkDesc}</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0950, 70.2822, "Гора Жеке-Батыр")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.02159929462559, 70.15334696170892, "Гора Жеке-Батыр")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.zhekebatyr}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.zhekebatyrDesc}</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0844, 70.2764, "Озеро Щучье")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(52.982390308681836, 70.18538471113999, "Озеро Щучье")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.shuchye}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.shuchyeDesc}</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0933, 70.2989, "Скала Окжетпес")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.08660058420654, 70.24777361945581, "Скала Окжетпес")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.okzhetpes}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.okzhetpesDesc}</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(52.9678, 70.4267, "Гора Кокше")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.080011603516816, 70.18892099826711, "Гора Кокше")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.kokshe}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.koksheDesc}</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.2900, 69.4050, "Музей истории")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.28201065540662, 69.36048375373946, "Музей истории")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.museum}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.museumDesc}</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.2950, 69.3900, "Парк Победы")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.2794092927006, 69.37911254614953, "Парк Победы")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.parkpobedy}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.parkpobeдyDesc}</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0789, 70.2956, "Озеро Чебачье")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.1178610963404, 70.2733022529044, "Озеро Чебачье")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.chebachye}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.chebachyeDesc}</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0922, 70.3044, "Сосновый бор")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.0900, 70.2950, "Сосновый бор")' style='background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-5px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>${t.pine}</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>${t.pineDesc}</p>
                                 </div>
@@ -589,52 +507,52 @@
                                     <p style='color: #666; font-size: 0.9rem;'>Жемчужина Бурабая</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(52.8667, 70.6167, "Курорт Бурабай")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.095598489783946, 70.28425352164322, "Курорт Бурабай")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Курорт Бурабай</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>Санаторно-курортная зона</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.1167, 70.3000, "Природный парк")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.08296382736395, 70.23504248997459, "Природный парк")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Природный парк</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>Природные красоты региона</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0950, 70.2822, "Гора Жеке-Батыр")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.02159929462559, 70.15334696170892, "Гора Жеке-Батыр")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Гора Жеке-Батыр</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>Легендарная скала</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0844, 70.2764, "Озеро Щучье")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(52.982390308681836, 70.18538471113999, "Озеро Щучье")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Озеро Щучье</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>Живописное озеро</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0933, 70.2989, "Скала Окжетпес")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.08660058420654, 70.24777361945581, "Скала Окжетпес")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Скала Окжетпес</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>Знаменитая достопримечательность</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(52.9678, 70.4267, "Гора Кокше")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.080011603516816, 70.18892099826711, "Гора Кокше")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Гора Кокше</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>Панорамные виды</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.2900, 69.4050, "Музей истории")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.28201065540662, 69.36048375373946, "Музей истории")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Музей истории</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>История Акмолинской области</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.2950, 69.3900, "Парк Победы")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.2794092927006, 69.37911254614953, "Парк Победы")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Парк Победы</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>Центральный парк города</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0789, 70.2956, "Озеро Большое Чебачье")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)" this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.1178610963404, 70.2733022529044, "Озеро Большое Чебачье")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)" this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Озеро Чебачье</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>Чистейшие воды</p>
                                 </div>
                                 
-                                <div onclick='navigateToLocation(53.0922, 70.3044, "Сосновый бор")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
+                                <div onclick='navigateToLocation(53.0900, 70.2950, "Сосновый бор")' style='background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;' onmouseover='this.style.transform="translateY(-3px)"; this.style.boxShadow="0 8px 25px rgba(92,107,192,0.3)"' onmouseout='this.style.transform="translateY(0)"; this.style.boxShadow="0 5px 15px rgba(0,0,0,0.1)"'>
                                     <h4 style='color: #5c6bc0; margin-bottom: 0.5rem; font-size: 1.2rem;'>Сосновый бор</h4>
                                     <p style='color: #666; font-size: 0.9rem;'>Целебный воздух</p>
                                 </div>
@@ -811,57 +729,93 @@
                 app.innerHTML = `
                     <div style='padding: 2rem 1rem; background: white; min-height: calc(100vh - 80px);'>
                         <div style='text-align: center; margin-bottom: 3rem;'>
-                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>Автоматический скоринг господдержки</h2>
-                            <p style='color: #546e7a; font-size: 1.2rem;'>Проверьте возможность получения поддержки для вашего туристического бизнеса</p>
+                            <h2 style='color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;'>Система оценки заявок на господдержку</h2>
+                            <p style='color: #546e7a; font-size: 1.2rem;'>Автоматический скоринг для принятия решений о выдаче поддержки</p>
                         </div>
                         
                         <div style='max-width: 900px; margin: 0 auto;'>
+                            <div style='background: #fff3e0; border-left: 4px solid #ff9800; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;'>
+                                <p style='margin: 0; color: #f57c00; font-weight: 600;'>ℹ️ Этот инструмент предназначен для госслужащих при рассмотрении заявок на поддержку туристических предприятий</p>
+                            </div>
+                            
                             <div style='background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 2rem;'>
+                                <h3 style='color: #5c6bc0; margin-bottom: 1.5rem; font-size: 1.5rem;'>Оценка организации</h3>
                                 <form id='scoringForm' style='display: flex; flex-direction: column; gap: 1.5rem;'>
                                     <div>
-                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Тип бизнеса</label>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Название организации</label>
+                                        <input type='text' id='companyName' placeholder='ТОО "Бурабай Ресорт"' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                        <small style='color: #999; font-size: 0.85rem;'>Полное наименование предприятия</small>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>БИН организации</label>
+                                        <input type='text' id='companyBin' placeholder='123456789012' maxlength='12' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                        <small style='color: #999; font-size: 0.85rem;'>12-значный БИН</small>
+                                    </div>
+                                    
+                                    <div>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Тип деятельности</label>
                                         <select id='businessType' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
                                             <option value=''>Выберите тип</option>
                                             <option value='hotel'>Гостиница/Отель</option>
                                             <option value='restaurant'>Ресторан/Кафе</option>
-                                            <option value='tour'>Туроператор</option>
+                                            <option value='tour'>Туроператор/Турагентство</option>
                                             <option value='transport'>Транспортные услуги</option>
-                                            <option value='entertainment'>Развлечения</option>
-                                            <option value='guide'>Гид/Экскурсовод</option>
+                                            <option value='entertainment'>Развлекательный комплекс</option>
+                                            <option value='guide'>Экскурсионные услуги</option>
+                                            <option value='sanatorium'>Санаторий/База отдыха</option>
                                         </select>
                                     </div>
                                     
                                     <div>
                                         <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Годовой оборот (₸)</label>
-                                        <input type='number' id='annualRevenue' placeholder='1000000' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                        <input type='number' id='annualRevenue' placeholder='50000000' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                        <small style='color: #999; font-size: 0.85rem;'>Оборот за последний финансовый год</small>
                                     </div>
                                     
                                     <div>
                                         <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Количество сотрудников</label>
-                                        <input type='number' id='employees' placeholder='5' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                        <input type='number' id='employees' placeholder='25' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                        <small style='color: #999; font-size: 0.85rem;'>Штатная численность</small>
                                     </div>
                                     
                                     <div>
-                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Срок работы (лет)</label>
-                                        <input type='number' id='yearsInBusiness' placeholder='3' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Опыт работы (лет)</label>
+                                        <input type='number' id='yearsInBusiness' placeholder='5' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                        <small style='color: #999; font-size: 0.85rem;'>Годы работы в туристической отрасли</small>
                                     </div>
                                     
                                     <div>
-                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Средний рейтинг</label>
+                                        <label style='display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50;'>Средний рейтинг клиентов</label>
                                         <input type='number' step='0.1' min='0' max='5' id='rating' placeholder='4.5' required style='width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;'>
+                                        <small style='color: #999; font-size: 0.85rem;'>От 0 до 5 (на основе отзывов)</small>
                                     </div>
                                     
-                                    <div style='display: flex; align-items: center; gap: 1rem;'>
-                                        <input type='checkbox' id='hasLicense' style='width: 20px; height: 20px;'>
-                                        <label for='hasLicense' style='font-weight: 600; color: #2c3e50;'>Есть лицензия на туристическую деятельность</label>
+                                    <div style='background: #f5f5f5; padding: 1.5rem; border-radius: 10px;'>
+                                        <h4 style='margin-top: 0; color: #2c3e50;'>Дополнительные критерии</h4>
+                                        
+                                        <div style='display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;'>
+                                            <input type='checkbox' id='hasLicense' style='width: 20px; height: 20px;'>
+                                            <label for='hasLicense' style='font-weight: 600; color: #2c3e50;'>Наличие лицензии на туристическую деятельность</label>
+                                        </div>
+                                        
+                                        <div style='display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;'>
+                                            <input type='checkbox' id='socialProject' style='width: 20px; height: 20px;'>
+                                            <label for='socialProject' style='font-weight: 600; color: #2c3e50;'>Реализует социальные проекты</label>
+                                        </div>
+                                        
+                                        <div style='display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;'>
+                                            <input type='checkbox' id='innovativeServices' style='width: 20px; height: 20px;'>
+                                            <label for='innovativeServices' style='font-weight: 600; color: #2c3e50;'>Внедряет инновационные услуги</label>
+                                        </div>
+                                        
+                                        <div style='display: flex; align-items: center; gap: 1rem;'>
+                                            <input type='checkbox' id='ecoFriendly' style='width: 20px; height: 20px;'>
+                                            <label for='ecoFriendly' style='font-weight: 600; color: #2c3e50;'>Экологичный бизнес</label>
+                                        </div>
                                     </div>
                                     
-                                    <div style='display: flex; align-items: center; gap: 1rem;'>
-                                        <input type='checkbox' id='socialProject' style='width: 20px; height: 20px;'>
-                                        <label for='socialProject' style='font-weight: 600; color: #2c3e50;'>Реализуете социальные проекты</label>
-                                    </div>
-                                    
-                                    <button type='submit' style='background: #5c6bc0; color: white; padding: 1.2rem 2rem; border: none; border-radius: 25px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;'>Рассчитать скоринг</button>
+                                    <button type='submit' style='background: linear-gradient(135deg, #5c6bc0 0%, #7986cb 100%); color: white; padding: 1.2rem 2rem; border: none; border-radius: 25px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(92,107,192,0.3);'>Провести оценку</button>
                                 </form>
                             </div>
                             
@@ -1631,6 +1585,8 @@
         
         // Calculate scoring function
         function calculateScoring() {
+            const companyName = document.getElementById('companyName').value;
+            const companyBin = document.getElementById('companyBin').value;
             const businessType = document.getElementById('businessType').value;
             const revenue = parseInt(document.getElementById('annualRevenue').value);
             const employees = parseInt(document.getElementById('employees').value);
@@ -1638,10 +1594,13 @@
             const rating = parseFloat(document.getElementById('rating').value);
             const hasLicense = document.getElementById('hasLicense').checked;
             const socialProject = document.getElementById('socialProject').checked;
+            const innovativeServices = document.getElementById('innovativeServices').checked;
+            const ecoFriendly = document.getElementById('ecoFriendly').checked;
             
             // Scoring algorithm
             let score = 0;
             let details = [];
+            let recommendations = [];
             
             // Business type score (10 points)
             const businessScores = {
@@ -1650,82 +1609,136 @@
                 'tour': 10,
                 'transport': 7,
                 'entertainment': 6,
-                'guide': 5
+                'guide': 5,
+                'sanatorium': 10
             };
             const businessScore = businessScores[businessType] || 5;
             score += businessScore;
-            details.push(`Тип бизнеса: +${businessScore} баллов`);
+            details.push(`Тип деятельности: +${businessScore} баллов`);
             
-            // Revenue score (20 points max)
+            // Revenue score (25 points max)
             let revenueScore = 0;
-            if (revenue > 50000000) revenueScore = 20;
-            else if (revenue > 20000000) revenueScore = 15;
-            else if (revenue > 10000000) revenueScore = 10;
-            else if (revenue > 5000000) revenueScore = 5;
-            else revenueScore = 2;
+            if (revenue > 100000000) { revenueScore = 25; }
+            else if (revenue > 50000000) { revenueScore = 20; }
+            else if (revenue > 20000000) { revenueScore = 15; }
+            else if (revenue > 10000000) { revenueScore = 10; }
+            else if (revenue > 5000000) { revenueScore = 5; }
+            else { revenueScore = 2; recommendations.push('Увеличить оборот до 10 млн ₸'); }
             score += revenueScore;
             details.push(`Годовой оборот: +${revenueScore} баллов`);
             
             // Employees score (15 points max)
             let empScore = 0;
-            if (employees > 50) empScore = 15;
-            else if (employees > 20) empScore = 12;
-            else if (employees > 10) empScore = 8;
-            else if (employees > 5) empScore = 5;
-            else empScore = 2;
+            if (employees > 50) { empScore = 15; }
+            else if (employees > 30) { empScore = 12; }
+            else if (employees > 20) { empScore = 10; }
+            else if (employees > 10) { empScore = 7; }
+            else if (employees > 5) { empScore = 4; }
+            else { empScore = 2; recommendations.push('Расширить штат сотрудников'); }
             score += empScore;
-            details.push(`Количество сотрудников: +${empScore} баллов`);
+            details.push(`Штатная численность: +${empScore} баллов`);
             
             // Years in business (15 points max)
             let yearsScore = Math.min(years * 3, 15);
             score += yearsScore;
             details.push(`Опыт работы: +${yearsScore} баллов`);
+            if (years < 3) recommendations.push('Набрать опыт работы (мин. 3 года)');
             
             // Rating score (20 points max)
             let ratingScore = Math.round(rating * 4);
             score += ratingScore;
-            details.push(`Средний рейтинг: +${ratingScore} баллов`);
+            details.push(`Рейтинг клиентов: +${ratingScore} баллов`);
+            if (rating < 4.0) recommendations.push('Улучшить качество обслуживания (рейтинг < 4.0)');
             
             // License bonus (10 points)
             if (hasLicense) {
                 score += 10;
                 details.push(`Наличие лицензии: +10 баллов`);
+            } else {
+                recommendations.push('Получить лицензию на туристическую деятельность');
             }
             
-            // Social project bonus (10 points)
+            // Social project bonus (5 points)
             if (socialProject) {
-                score += 10;
-                details.push(`Социальные проекты: +10 баллов`);
+                score += 5;
+                details.push(`Социальные проекты: +5 баллов`);
+            }
+            
+            // Innovation bonus (5 points)
+            if (innovativeServices) {
+                score += 5;
+                details.push(`Инновационные услуги: +5 баллов`);
+            }
+            
+            // Eco bonus (5 points)
+            if (ecoFriendly) {
+                score += 5;
+                details.push(`Экологичность: +5 баллов`);
             }
             
             // Display result
             document.getElementById('scoreValue').textContent = score;
             
-            let status = '';
+            let decision = '';
+            let decisionIcon = '';
             let statusColor = '';
-            if (score >= 80) {
-                status = 'Отличные шансы! Высокий приоритет для получения господдержки';
+            let decisionText = '';
+            
+            if (score >= 85) {
+                decision = 'РЕКОМЕНДУЕТСЯ К ВЫДАЧЕ';
+                decisionIcon = '✅';
                 statusColor = '#4caf50';
-            } else if (score >= 60) {
-                status = 'Хорошие шансы! Рекомендуем подать заявку';
+                decisionText = 'Предприятие полностью соответствует критериям. Рекомендуется одобрить заявку на получение господдержки.';
+            } else if (score >= 70) {
+                decision = 'УСЛОВНО РЕКОМЕНДУЕТСЯ';
+                decisionIcon = '⚠️';
                 statusColor = '#ff9800';
-            } else if (score >= 40) {
-                status = 'Средние шансы. Улучшите показатели для повышения приоритета';
+                decisionText = 'Предприятие в целом соответствует критериям. Рекомендуется запросить дополнительную информацию и документы.';
+            } else if (score >= 50) {
+                decision = 'ТРЕБУЕТСЯ ДОРАБОТКА';
+                decisionIcon = '📋';
                 statusColor = '#ff5722';
+                decisionText = 'Предприятию необходимо улучшить показатели. Рекомендуется отложить решение и предоставить рекомендации.';
             } else {
-                status = 'Низкие шансы. Необходимо значительное улучшение показателей';
+                decision = 'НЕ РЕКОМЕНДУЕТСЯ';
+                decisionIcon = '❌';
                 statusColor = '#f44336';
+                decisionText = 'Предприятие не соответствует минимальным критериям. Рекомендуется отклонить заявку.';
             }
             
-            document.getElementById('scoreStatus').textContent = status;
+            document.getElementById('scoreStatus').innerHTML = `
+                <div style="font-size: 3rem; margin-bottom: 1rem;">${decisionIcon}</div>
+                <div style="font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem;">${decision}</div>
+                <div style="font-size: 1.1rem; font-weight: 400; opacity: 0.95; line-height: 1.6;">${decisionText}</div>
+            `;
             document.getElementById('scoreStatus').style.color = statusColor;
             
-            // Display details
-            let detailsHTML = '<h4 style="margin-bottom: 1rem; font-size: 1.2rem;">Детализация оценки:</h4><ul style="list-style: none; padding: 0;">';
+            // Display company info and details
+            let detailsHTML = `
+                <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; opacity: 0.8;">Организация:</h4>
+                    <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;">${companyName}</div>
+                    <div style="font-size: 0.95rem; opacity: 0.9;">БИН: ${companyBin}</div>
+                </div>
+                
+                <h4 style="margin-bottom: 1rem; font-size: 1.2rem; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 0.5rem;">📊 Детализация оценки:</h4>
+                <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">`;
+            
             details.forEach(detail => {
-                detailsHTML += `<li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">• ${detail}</li>`;
+                detailsHTML += `<li style="padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.15); font-size: 1rem;">• ${detail}</li>`;
             });
             detailsHTML += '</ul>';
+            
+            if (recommendations.length > 0) {
+                detailsHTML += `
+                    <h4 style="margin-bottom: 1rem; font-size: 1.2rem; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 0.5rem;">💡 Рекомендации:</h4>
+                    <ul style="list-style: none; padding: 0;">`;
+                recommendations.forEach(rec => {
+                    detailsHTML += `<li style="padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.15); font-size: 1rem;">• ${rec}</li>`;
+                });
+                detailsHTML += '</ul>';
+            }
+            
             document.getElementById('scoreDetails').innerHTML = detailsHTML;
             
             document.getElementById('scoringResult').style.display = 'block';
@@ -1750,47 +1763,11 @@
         }
 
         
-        // Language change function
+        // Language change function (disabled - only Russian language)
         function changeLanguage(lang) {
-            console.log('Language changed to:', lang);
-            
-            // Сохраняем выбранный язык
-            currentLanguage = lang;
-            localStorage.setItem('preferredLanguage', lang);
-            
-            // Обновляем навигацию
-            const t = translations[lang];
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            if (navLinks.length >= 6) {
-                navLinks[0].textContent = t.home;
-                navLinks[1].textContent = t.map;
-                navLinks[2].textContent = t.complaints;
-                navLinks[3].textContent = t.support;
-                navLinks[4].textContent = t.egov;
-                navLinks[5].textContent = t.ai;
-            }
-            
-            // Обновляем заголовок страницы
-            document.title = t.title + ' - ' + t.home;
-            
-            // Определяем текущий роут и перерисовываем страницу
-            const activeLink = document.querySelector('.nav-link.active');
-            if (activeLink) {
-                // Определяем роут по индексу активной ссылки
-                const allLinks = Array.from(document.querySelectorAll('.nav-link'));
-                const activeIndex = allLinks.indexOf(activeLink);
-                
-                const routes = ['home', 'map', 'complaints', 'support', 'egov', 'ai'];
-                if (activeIndex >= 0 && activeIndex < routes.length) {
-                    navigate(routes[activeIndex]);
-                }
-            }
-            
-            // Уведомление отключено
-            // const notification = document.createElement('div');
-            // notification.textContent = `${langNames[lang]}`;
-            // document.body.appendChild(notification);
+            console.log('Language selection disabled - only Russian available');
+            // Всегда используем русский язык
+            currentLanguage = 'ru';
         }
     </script>
 </body>

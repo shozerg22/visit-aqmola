@@ -37,9 +37,6 @@ async def resolve_user_from_jwt(token: str, db: AsyncSession) -> Optional[models
     return res.scalars().first()
 
 
-from database import get_session
-
-
 def _extract_token(auth_header: str | None) -> str | None:
     if auth_header and auth_header.startswith("Bearer "):
         return auth_header.split(" ", 1)[1].strip()

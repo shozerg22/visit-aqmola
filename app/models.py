@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey, DateTime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-from database import Base
-from config import settings
+from app.database import Base
+from app.config import settings
 
 try:
     from pgvector.sqlalchemy import Vector
