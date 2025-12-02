@@ -2,9 +2,9 @@ import os, jwt, time, uuid
 from fastapi import Header, HTTPException, Request, Depends
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
-from database import get_session
+from app.database import get_session
 from sqlalchemy.future import select
-import models
+from app import models
 
 JWT_SECRET = os.getenv("JWT_SECRET", "dev-secret")
 JWT_TTL_SECONDS = int(os.getenv("JWT_TTL_SECONDS", "3600"))

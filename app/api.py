@@ -6,17 +6,17 @@ import base64
 import jwt as JWT
 from jwt import PyJWKClient
 from typing import List
-import schemas, crud
-from database import get_session
+from app import schemas, crud
+from app.database import get_session
 from sqlalchemy.ext.asyncio import AsyncSession
-from ai_service import ai_service
-from auth import admin_required, roles_required
-from auth import revoke_jwt
-from config import settings
-from metrics import RAG_SEARCH_TOTAL, RAG_FALLBACK_TOTAL, ADMIN_ACTIONS_TOTAL
-import models
-from rag_service import RAGService
-from config import settings
+from app.ai_service import ai_service
+from app.auth import admin_required, roles_required
+from app.auth import revoke_jwt
+from app.config import settings
+from app.metrics import RAG_SEARCH_TOTAL, RAG_FALLBACK_TOTAL, ADMIN_ACTIONS_TOTAL
+from app import models
+from app.rag_service import RAGService
+from app.config import settings
 
 router = APIRouter(prefix="/api/v1")
 # OIDC login: validate id_token, link/create user by sub

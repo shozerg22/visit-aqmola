@@ -1,6 +1,6 @@
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
-import models
+from app import models
 
 
 async def create_user(db: AsyncSession, user_in):

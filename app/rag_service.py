@@ -3,10 +3,10 @@ import json
 import hashlib
 import math
 from typing import List, Dict, Any, Optional
-from config import settings
+from app.config import settings
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-import models
+from app import models
 
 
 def _ensure_dir(path: str) -> None:

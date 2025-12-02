@@ -1,6 +1,6 @@
 import asyncio
-from database import init_db, AsyncSessionLocal
-from models import User, Object as Obj, Booking, Review
+from app.database import init_db, AsyncSessionLocal
+from app.models import User, Object as Obj, Booking, Review
 
 
 async def seed():
