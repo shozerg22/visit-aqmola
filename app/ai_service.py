@@ -1,77 +1,82 @@
 import os
+import logging
+import httpx
 from typing import Optional
 
+logger = logging.getLogger(__name__)
 
 class AIService:
     def __init__(self):
-        self.provider = os.getenv("AI_PROVIDER", "stub").lower()
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
-        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        self.openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+        # Amazon Nova 2 Lite - новая быстрая модель с огромным контекстом (1M токенов)
+        self.model = "amazon/nova-2-lite-v1:free"
 
-        # Lazy init for providers
-        self._openai_client = None
+    async def chat(self, prompt: str, lang: Optional[str] = None) -> str:
+        """
+        Отправляет запрос к OpenRouter API с моделью Amazon Nova
+        """
+        if not self.openrouter_api_key:
+            logger.warning("No OpenRouter API key found, using fallback")
+            return self._stub_response(prompt)
 
-    def _ensure_openai(self):
-        if self._openai_client is not None:
-            return
-        if not self.openai_api_key:
-            raise RuntimeError("OPENAI_API_KEY is not set")
         try:
-            from openai import OpenAI  # type: ignore
-        except Exception as e:
-            raise RuntimeError(f"OpenAI SDK not available: {e}")
-        self._openai_client = OpenAI(api_key=self.openai_api_key)
-
-    def chat(self, prompt: str, lang: Optional[str] = None) -> str:
-        # Normalize language
-        lang = (lang or "RU").upper()
-        context = None
-        # Читаем флаг RAG динамически, чтобы можно было менять на лету (тесты/конфиг)
-        if os.getenv("AI_USE_RAG", "0") == "1":
-            try:
-                from rag_service import rag_service  # lazy import to avoid cycles
-                context = rag_service.get_context(prompt)
-            except Exception:
-                context = None
-
-        if self.provider == "openai":
-            try:
-                self._ensure_openai()
-                # Minimal chat completion
-                user_content = f"[{lang}] {prompt}"
-                if context:
-                    user_content += f"\n\nКонтекст:\n{context}"
-
-                completion = self._openai_client.chat.completions.create(
-                    model=self.openai_model,
-                    messages=[
-                        {
-                            "role": "system",
-                            "content": (
-                                "You are a travel assistant for Aqmola region. "
-                                "Respond briefly in the requested language (RU/KZ/EN)."
-                            ),
-                        },
-                        {"role": "user", "content": user_content},
-                    ],
-                    temperature=0.3,
-                    max_tokens=300,
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                response = await client.post(
+                    "https://openrouter.ai/api/v1/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {self.openrouter_api_key}",
+                        "Content-Type": "application/json",
+                        "HTTP-Referer": "https://visit-aqmola.kz",
+                        "X-Title": "Visit Aqmola"
+                    },
+                    json={
+                        "model": self.model,
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": "Ты - виртуальный туристический гид по Акмолинской области Казахстана. Помогай туристам с информацией о достопримечательностях, маршрутах, жилье и развлечениях. Основные достопримечательности: Национальный парк Бурабай (озера Боровое, Щучье), Кокшетау, гора Жеке-Батыр, скала Окжетпес. Отвечай на русском языке простым текстом БЕЗ markdown форматирования (без символов #, **, *, _, и т.д.). Используй только обычный текст с переносами строк."
+                            },
+                            {
+                                "role": "user",
+                                "content": prompt
+                            }
+                        ],
+                        "temperature": 0.7,
+                        "max_tokens": 1000
+                    }
                 )
-                return completion.choices[0].message.content or ""
-            except Exception as e:
-                # Fallback to stub on failure
-                return f"[stub-fallback] Получен запрос: '{prompt[:200]}'"
+                
+                if response.status_code != 200:
+                    logger.error(f"OpenRouter API error: {response.status_code} - {response.text[:200]}")
+                    return self._stub_response(prompt)
+                
+                data = response.json()
+                
+                if data.get("choices") and data["choices"][0].get("message"):
+                    content = data["choices"][0]["message"]["content"]
+                    return content
+                
+                logger.warning("No valid response in OpenRouter data")
+                return self._stub_response(prompt)
+                
+        except Exception as e:
+            logger.error(f"AI Service exception: {str(e)}")
+            return self._stub_response(prompt)
 
-        # Default stub behavior
-        base = (
-            "Это заглушка AI-ассистента. "
-            f"Я получил ваш запрос: '{prompt[:200]}'. "
-            "Полная функциональность будет активна после настройки ключей."
-        )
-        if context:
-            base += " Добавлен контекст RAG (заглушка)."
-        return base
+    def _stub_response(self, prompt: str) -> str:
+        """Fallback ответ если API недоступен"""
+        if "бурабай" in prompt.lower():
+            return "Национальный парк Бурабай - жемчужина Казахстана! Рекомендую посетить озёра Боровое и Щучье. Лучшее время для посещения - июнь-сентябрь."
+        elif "кокшетау" in prompt.lower():
+            return "Кокшетау - административный центр области. Здесь стоит посетить музей истории области и парк Победы."
+        elif "жилье" in prompt.lower() or "отель" in prompt.lower():
+            return "В области есть различные варианты жилья: санатории в Бурабае, отели в Кокшетау, гостевые дома."
+        elif "маршрут" in prompt.lower():
+            return "Рекомендованный маршрут: День 1 - Кокшетау; День 2-3 - Бурабай (озера Боровое и Щучье)."
+        else:
+            return "Я могу помочь с информацией о достопримечательностях Акмолинской области. Спросите о Бурабае, Кокшетау, маршрутах или жилье!"
 
 
-# Singleton-like accessor
+# Singleton
 ai_service = AIService()
+

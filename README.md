@@ -1,41 +1,42 @@
 # Visit Aqmola
 
-Туристический портал Акмолинской области Казахстана.
+Туристический портал Акмолинской области Казахстана с AI-ассистентом.
 
-## Требования
 
-- Docker Desktop (Windows/Mac) или Docker Engine (Linux)
-- Docker Compose v2.0+
-- Порт 8000 должен быть свободен
 
-## Запуск проекта
 
-### 1. Клонирование репозитория
+- Python 3.11+
+- OpenRouter API ключ (бесплатный) - [получить здесь](https://openrouter.ai/settings/keys)
+
+### Установка
 
 ```bash
-git clone https://github.com/your-username/visit-aqmola.git
+# Клонирование
+git clone https://github.com/shozerg22/visit-aqmola.git
 cd visit-aqmola
+
+# Установка зависимостей
+pip install -r requirements.txt
+
+# Настройка .env файла
+cp .env.example .env
+# Отредактируйте .env и добавьте OPENROUTER_API_KEY
 ```
 
-### 2. Настройка API ключей
+### Запуск
 
-Откройте файл `src/web/index.html` и замените API ключи:
+```bash
+# Windows PowerShell
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 
-Google Maps API (строка 6):
-```html
-<script async src="https://maps.googleapis.com/maps/api/js?key=ВАШ_КЛЮЧ&callback=console.debug&libraries=maps,marker&v=beta"></script>
+# Или в фоновом режиме
+Start-Job -ScriptBlock {
+    Set-Location 'путь\к\проекту'
+    python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+}
 ```
 
-Google Gemini AI API (строка 169):
-```javascript
-const GEMINI_API_KEY = 'ВАШ_КЛЮЧ';
-```
-
-Получение ключей:
-- Google Maps: https://console.cloud.google.com/google/maps-apis
-- Gemini AI: https://aistudio.google.com/app/apikey
-
-### 3. Запуск
+ Запуск
 
 ```bash
 docker-compose up --build

@@ -1,28 +1,39 @@
 """Main FastAPI Application"""
 import os
+import logging
+from dotenv import load_dotenv
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
+# Load environment variables
+load_dotenv()
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
 from app.api import router
 from app.database import init_db
 
+logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize database on startup"""
-    if os.getenv("DISABLE_DB_INIT", "0") != "1":
-        await init_db()
+    logger.info("Application starting...")
     yield
+    logger.info("Application shutting down")
 
 
 # Create FastAPI app
 app = FastAPI(
     title="Visit Aqmola API",
     description="Tourism platform for Akmola Region",
-    version="0.1.0",
-    lifespan=lifespan
+    version="0.1.0"
 )
 
 # Include API routes

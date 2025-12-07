@@ -13,12 +13,11 @@ from app.ai_service import ai_service
 from app.auth import admin_required, roles_required
 from app.auth import revoke_jwt
 from app.config import settings
-from app.metrics import RAG_SEARCH_TOTAL, RAG_FALLBACK_TOTAL, ADMIN_ACTIONS_TOTAL
+from app.metrics import ADMIN_ACTIONS_TOTAL
 from app import models
-from app.rag_service import RAGService
-from app.config import settings
 
-router = APIRouter(prefix="/api/v1")
+
+router = APIRouter()
 # OIDC login: validate id_token, link/create user by sub
 @router.post("/auth/oidc/login", response_model=schemas.UserOut, tags=["integrations", "auth"])
 async def oidc_login(id_token: str, db: AsyncSession = Depends(get_session)):
@@ -231,71 +230,8 @@ async def freedom_mock_tours():
 
 @router.post("/ai/chat", response_model=schemas.AIResponse, tags=["ai"])
 async def ai_chat(req: schemas.AIRequest):
-    reply = ai_service.chat(req.prompt, req.lang)
+    reply = await ai_service.chat(req.prompt, req.lang)
     return {"reply": reply}
-
-
-# --- RAG: документы и поиск ---
-
-@router.post("/rag/documents", tags=["ai", "rag"])
-async def rag_add_document(body: schemas.RAGDocumentIn, db: AsyncSession = Depends(get_session), _perm: bool = Depends(roles_required({"admin","content-manager"}))):
-    # Лимит размера
-    if len(body.text) > settings.MAX_RAG_DOC_CHARS:
-        raise HTTPException(status_code=400, detail="Document too large")
-    service = RAGService()
-    doc = await service.ingest(title=body.title, text=body.text, lang=body.lang, tags=body.tags, session=db if service.backend=='pgvector' else None)
-    return {"ok": True, "id": doc["id"], "title": doc["title"]}
-
-
-@router.get("/rag/search", tags=["ai", "rag"])
-async def rag_search(q: str, k: int = 3, mode: str | None = None, db: AsyncSession = Depends(get_session)):
-    service = RAGService(mode=mode)
-    fallback_used = False
-    if service.backend == 'pgvector':
-        try:
-            results = await service.search(q, k=k, session=db)
-        except Exception:
-            # Fallback на файловый если ошибка
-            fallback_used = True
-            fs = RAGService(store=None, mode=mode)
-            results = fs.store.search(q, k=k)
-    else:
-        # Файловый backend
-        results = service.store.search(q, k=k)
-        if service.store.mode == 'embeddings' and not service.store._embeddings_enabled:
-            fallback_used = True
-    if RAG_SEARCH_TOTAL:
-        RAG_SEARCH_TOTAL.inc()
-        if fallback_used and RAG_FALLBACK_TOTAL:
-            RAG_FALLBACK_TOTAL.inc()
-    return {"query": q, "mode": service.store.mode, "results": results}
-
-
-@router.post("/rag/documents/batch", tags=["ai", "rag"])
-async def rag_add_documents_batch(body: schemas.RAGDocumentsBatch, db: AsyncSession = Depends(get_session), _perm: bool = Depends(roles_required({"admin","content-manager"}))):
-    for item in body.items:
-        if len(item.text) > settings.MAX_RAG_DOC_CHARS:
-            raise HTTPException(status_code=400, detail=f"Document too large: {item.title}")
-    service = RAGService()
-    res = await service.ingest_batch([item.dict() for item in body.items], session=db if service.backend=='pgvector' else None)
-    return res
-
-
-@router.post("/rag/index/objects", tags=["ai", "rag"])
-async def rag_index_objects(db: AsyncSession = Depends(get_session)):
-    # Индексация каталога объектов как RAG документов
-    objs = await crud.list_objects(db)
-    service = RAGService()
-    items = []
-    for o in objs:
-        items.append({
-            "title": getattr(o, "name", "Object"),
-            "text": getattr(o, "description", ""),
-            "lang": None,
-            "tags": ["object"],
-        })
-    res = await service.ingest_batch(items, session=db if service.backend=='pgvector' else None)
-    return {"count": len(items), **res}
 
 
 # --- Complaints & Events ---

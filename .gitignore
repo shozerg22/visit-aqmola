@@ -44,3 +44,13 @@ Thumbs.db
 *.tmp
 *.bak
 *.cache
+
+# Тестовые файлы
+test_*.py
+test_*.html
+minimal_app.py
+check_models.py
+server*.log
+
+# Pytest
+.pytest_cache/
